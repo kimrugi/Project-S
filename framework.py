@@ -18,7 +18,13 @@ def run(start):
 
 
 def change(state):
-    pass
+    global stack
+    if len(stack) > 0:
+        stack[-1].exit()
+        stack.pop()
+    stack.append(state)
+    state.enter()
+
 
 def push_state(state):
     pass
