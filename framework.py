@@ -43,3 +43,8 @@ def pop_state(state):
         stack[-1].resume()
 
 
+def quit():
+    global running
+    running = False
+
+
