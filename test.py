@@ -3,7 +3,10 @@ from pico2d import *
 import framework
 
 
-name = "Test"
+class test_class:
+    def __init__(self):
+        self.image = load_image('resources\\character\\shipsprite1.png')
+        self.x, self.y = 500, 500
 
 
 def enter():
