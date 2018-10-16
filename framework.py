@@ -27,9 +27,19 @@ def change(state):
 
 
 def push_state(state):
-    pass
+    global stack
+    if len(stack) > 0:
+        stack[-1].pause()
+    stack.append(state)
+    state.enter()
+
 
 def pop_state(state):
-    pass
+    global stack
+    if len(stack) > 0:
+        stack[-1].exit()
+        stack.pop()
+    if len(stack) > 0:
+        stack[-1].resume()
 
 
