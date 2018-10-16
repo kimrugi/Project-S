@@ -12,12 +12,20 @@ class test_class:
     def draw(self):
         self.image.clip_draw(0, 0, image_x // 3, image_y // 8, self.x, self.y)
 
-def enter():
-    pass
+ship = None
+
+
+
+def init():
+    global ship
+    ship = test_class()
+
 
 
 def exit():
-    pass
+    global ship
+    del ship
+
 
 
 def pause():
@@ -39,11 +47,13 @@ def handle_events():
 
 
 def update():
-    pass
+    ship.update()
 
 
 def draw():
+    clear_canvas()
+    ship.draw()
+    update_canvas()
 
-   pass
 
 
