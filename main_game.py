@@ -11,6 +11,8 @@ def init():
 
 
 def exit():
+    global player
+    del player
     pass
 
 
@@ -27,9 +29,26 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             framework.quit()
-        else:
-            if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
+        elif event.type == SDL_KEYDOWN:
+            if event.key == SDLK_ESCAPE:
                framework.quit()
+            if event.key == SDLK_w:
+                player.add_vertical(1)
+            if event.key == SDLK_s:
+                player.add_vertical(-1)
+            if event.key == SDLK_a:
+                player.add_horizon(-1)
+            if event.key == SDLK_d:
+                player.add_horizon(1)
+        elif event.type == SDL_KEYUP:
+            if event.key == SDLK_w:
+                player.add_vertical(-1)
+            if event.key == SDLK_s:
+                player.add_vertical(1)
+            if event.key == SDLK_a:
+                player.add_horizon(1)
+            if event.key == SDLK_d:
+                player.add_horizon(-1)
 
 
 def update():

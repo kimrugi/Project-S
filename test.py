@@ -5,7 +5,7 @@ import framework
 image_x, image_y = 192, 512
 class test_class:
     def __init__(self):
-        self.image = load_image('resources\\character\\shipsprite1.png')
+        self.image = load_image('resources\\character\\player.png')
         self.x, self.y = 500, 500
     def update(self):
         pass

@@ -1,11 +1,11 @@
 from pico2d import *
 
-images = (load_image('resources\\character\\shipsprite1.png'))
+
 
 image_x, image_y = 192, 512
 class test_class:
     def __init__(self):
-        self.image = load_image('resources\\character\\shipsprite1.png')
+        #self.image = load_image('resources\\character\\player.png')
         self.x, self.y = 500, 500
     def update(self):
         pass
@@ -14,8 +14,8 @@ class test_class:
 
 class Object:
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        self.x = 100
+        self.y = 100
         self.image = None
         self.speed = 0
         self.size = 0
@@ -25,18 +25,28 @@ class Object:
 class Player:
     def __init__(self):
         self.obj = Object()
-        self.obj.image = 0
+        self.obj.image = load_image('resources\\character\\player.png')
+        self.obj.speed = 0.2
         self.vertical = 0
         self.horizon = 0
 
     def move(self):
         self.obj.x = self.obj.x + self.horizon * self.obj.speed
+        self.obj.y = self.obj.y + self.vertical * self.obj.speed
 
     def update(self):
         self.move()
         pass
+
     def draw(self):
-        images[self.obj.image].clip_draw(0, 0, image_x // 3, image_y // 8, self.obj.x, self.obj.y)
+        self.obj.image.clip_draw(0, 0, image_x // 3, image_y // 8, self.obj.x, self.obj.y)
+
+    def add_horizon(self, i):
+        self.horizon += i
+
+    def add_vertical(self, i):
+        self.vertical += i
+
     pass
 
 
