@@ -5,7 +5,10 @@ images = (load_image('resources\\character\\shipsprite1.png'))
 
 class Object:
     def __init__(self):
-        pass
+        self.x = 0
+        self.y = 0
+        self.image = None
+        self.speed = 0
     pass
 
 
