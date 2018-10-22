@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="587b1e01-51fb-4be8-acb9-0490b9850c1b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/main_game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,23 +23,23 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="png" value="1" />
-          <entry key="py" value="4" />
+          <entry key="py" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="1" />
-          <entry key="Python" value="4" />
+          <entry key="Python" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2012" />
+          <entry key="py" value="2087" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="2012" />
+          <entry key="Python" value="2087" />
         </counts>
       </usages-collector>
     </session>
@@ -72,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="71" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="71" />
+            <state relative-caret-position="76">
+              <caret line="4" selection-start-line="4" selection-end-line="59" />
               <folding>
                 <element signature="e#1#21#0" expanded="true" />
                 <marker date="1539659028000" expanded="true" signature="85:367" ph="..." />
@@ -83,15 +84,30 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+            <state relative-caret-position="228">
+              <caret line="12" column="78" selection-start-line="12" selection-start-column="78" selection-end-line="12" selection-end-column="78" />
               <folding>
-                <marker date="1540202024961" expanded="true" signature="124:238" ph="..." />
-                <marker date="1540202024961" expanded="true" signature="282:315" ph="..." />
-                <marker date="1540202024961" expanded="true" signature="424:506" ph="..." />
+                <marker date="1540202589465" expanded="true" signature="435:549" ph="..." />
+                <marker date="1540202589465" expanded="true" signature="593:626" ph="..." />
+                <marker date="1540202589465" expanded="true" signature="735:817" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main_game.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="608">
+              <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+                <marker date="1540202633636" expanded="true" signature="51:63" ph="..." />
+                <marker date="1540202633636" expanded="true" signature="74:86" ph="..." />
+                <marker date="1540202633636" expanded="true" signature="402:414" ph="..." />
               </folding>
             </state>
           </provider>
@@ -121,6 +137,7 @@
         <option value="$PROJECT_DIR$/framework.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/classes.py" />
+        <option value="$PROJECT_DIR$/main_game.py" />
       </list>
     </option>
   </component>
@@ -256,6 +273,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/character/shipsprite1.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" selection-start-line="4" selection-end-line="59" />
+          <folding>
+            <element signature="e#1#21#0" expanded="true" />
+            <marker date="1539659028000" expanded="true" signature="85:367" ph="..." />
+            <marker date="1539659028000" expanded="true" signature="418:422" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/framework.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -266,29 +298,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/character/shipsprite1.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
+    <entry file="file://$PROJECT_DIR$/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="71" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="71" />
+        <state relative-caret-position="228">
+          <caret line="12" column="78" selection-start-line="12" selection-start-column="78" selection-end-line="12" selection-end-column="78" />
           <folding>
-            <element signature="e#1#21#0" expanded="true" />
-            <marker date="1539659028000" expanded="true" signature="85:367" ph="..." />
-            <marker date="1539659028000" expanded="true" signature="418:422" ph="..." />
+            <marker date="1540202589465" expanded="true" signature="435:549" ph="..." />
+            <marker date="1540202589465" expanded="true" signature="593:626" ph="..." />
+            <marker date="1540202589465" expanded="true" signature="735:817" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes.py">
+    <entry file="file://$PROJECT_DIR$/main_game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+        <state relative-caret-position="608">
+          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
           <folding>
-            <marker date="1540202024961" expanded="true" signature="124:238" ph="..." />
-            <marker date="1540202024961" expanded="true" signature="282:315" ph="..." />
-            <marker date="1540202024961" expanded="true" signature="424:506" ph="..." />
+            <element signature="e#0#16#0" expanded="true" />
+            <marker date="1540202633636" expanded="true" signature="51:63" ph="..." />
+            <marker date="1540202633636" expanded="true" signature="74:86" ph="..." />
+            <marker date="1540202633636" expanded="true" signature="402:414" ph="..." />
           </folding>
         </state>
       </provider>
