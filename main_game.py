@@ -1,8 +1,12 @@
 import framework
+import classes
 from pico2d import *
 
+player = None
 
 def init():
+    global player
+    player = classes.Player()
     pass
 
 
@@ -29,11 +33,13 @@ def handle_events():
 
 
 def update():
+    player.update()
     pass
 
 
 def draw():
     clear_canvas()
+    player.draw()
     update_canvas()
 
 
