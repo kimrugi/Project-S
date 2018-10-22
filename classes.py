@@ -9,23 +9,26 @@ class Object:
         self.y = 0
         self.image = None
         self.speed = 0
+        self.size = 0
     pass
 
 
 class Player:
     def __init__(self):
-        pass
+        self.obj = Object()
     pass
 
 
 class Enemy:
     def __init__(self):
+        self.obj = Object()
         pass
     pass
 
 
 class Bullet:
     def __init__(self):
+        self.obj = Object()
         pass
     pass
 
