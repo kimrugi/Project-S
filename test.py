@@ -1,6 +1,7 @@
 
 from pico2d import *
 import framework
+import game_world
 
 image_x, image_y = 192, 512
 class test_class:
@@ -12,13 +13,13 @@ class test_class:
     def draw(self):
         self.image.clip_draw(0, 0, image_x // 3, image_y // 8, self.x, self.y)
 
-ship = None
+
 
 
 
 def init():
-    global ship
     ship = test_class()
+    game_world.add_object(ship, 1)
 
 
 

@@ -1,6 +1,8 @@
+import time
 
 running = None
 stack = None
+frame_time = 0
 
 
 def run(start):
@@ -8,10 +10,15 @@ def run(start):
     running = True
     stack = [start]
     start.init()
+    current_time = time.time()
+    global frame_time
     while running:
         stack[-1].handle_events()
         stack[-1].update()
         stack[-1].draw()
+        frame_time = time.time() - current_time
+        current_time += frame_time
+
     while len(stack) > 0:
         stack[-1].exit()
         stack.pop()
