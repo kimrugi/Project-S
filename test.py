@@ -56,5 +56,3 @@ def draw():
     ship.draw()
     update_canvas()
 
-
-

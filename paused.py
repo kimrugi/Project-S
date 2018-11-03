@@ -12,11 +12,11 @@ RESUME_GAME, GO_TO_MAINMENU, QUIT_GAME = range(NUM_OF_MENUS)
 
 selection = RESUME_GAME
 
-selection_table = {RESUME_GAME: framework.pop_state(), GO_TO_MAINMENU: framework.delete_all_and_change(main_menu), QUIT_GAME: framework.quit()
+selection_table = {
     
     }
 
-def init():
+def enter():
     
     pass
 
@@ -34,6 +34,7 @@ def resume():
 
 
 def handle_events():
+    global selection
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -47,9 +48,14 @@ def handle_events():
                 selection -= 1
             if event.key == SDLK_DOWN:
                 selection = (selection + 1) % NUM_OF_MENUS
-            if event.key == SDLK_SPCAE:
-                selection_table[selection]
-
+            if event.key == SDLK_SPACE:
+                if selection == RESUME_GAME:
+                    framework.pop_state()
+                elif selection == GO_TO_MAINMENU:
+                    framework.delete_all_and_change(main_menu)
+                elif selection == QUIT_GAME:
+                    framework.quit()
+                    
 
 def update():
     

@@ -31,15 +31,15 @@ class Player:
         self.event_que = []
 
     def move(self):
-        self.obj.x = self.obj.x + self.horizon * self.obj.speed
-        self.obj.y = self.obj.y + self.vertical * self.obj.speed
+        self.x = self.x + self.horizon * self.speed
+        self.y = self.y + self.vertical * self.speed
 
     def update(self):
         self.move()
         pass
 
     def draw(self):
-        self.obj.image.clip_draw(0, 0, image_x // 3, image_y // 8, self.obj.x, self.obj.y)
+        self.image.clip_draw(0, 0, image_x // 3, image_y // 8, self.x, self.y)
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

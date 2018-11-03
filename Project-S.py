@@ -1,12 +1,12 @@
 from pico2d import *
-WIDTH, HEIGHT = 1280, 720
-
-open_canvas(WIDTH, HEIGHT, sync=True)
-
 import framework
 import main_game
 import main_menu
 import test
+
+open_canvas(framework.GAME_SIZE[0], framework.GAME_SIZE[1], sync=True)
+
+
 
 
 

@@ -3,13 +3,22 @@ from pico2d import *
 import game_world
 import main_game
 
-texts = None
+NUM_OF_MENUS = 2
 
+START_GAME, QUIT_GAME = range(NUM_OF_MENUS)
+
+
+selection = START_GAME
+
+
+
+texts = None
+selection = 0
 
 def init():
-    global texts
+    global texts, selection
     texts = load_image("resources\\text\\main menu.png")
-    pass
+    selection = START_GAME
 
 
 def exit():
@@ -26,6 +35,7 @@ def resume():
 
 
 def handle_events():
+    global selection
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -33,19 +43,34 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
                framework.pop_state()
-
+            if event.key == SDLK_UP:
+                if selection == 0:
+                    selection = NUM_OF_MENUS
+                selection -= 1
+            if event.key == SDLK_DOWN:
+                selection = (selection + 1) % NUM_OF_MENUS
+            if event.key == SDLK_SPACE:
+                if selection == START_GAME:
+                    framework.change(main_game)
+                elif selction == QUIT_GAME:
+                    framework.quit()
 
 def update():
     
     pass
 
 
+def draw_texts():
+    global texts
+    if selection == START_GAME:
+        texts.clip_draw(0, 200, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2)
+    texts.clip_draw(0, 0, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2 - 150)
+
 def draw():
     global texts
     clear_canvas()
-    texts.clip_draw(0, 200, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2 + 100)
-    texts.clip_draw(0, 100, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2 )
-    texts.clip_draw(0, 0, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2 - 100)
+    texts.clip_draw(0, 200, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2)
+    texts.clip_draw(0, 0, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2 - 150)
     update_canvas()
 
 

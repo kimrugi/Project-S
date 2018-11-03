@@ -1,14 +1,18 @@
 import framework
-import player
+import player_ship
 from pico2d import *
 import game_world
+import back_ground
+import paused
 
 player = None
-
-def init():
-    global player
-    player = Player()
+background = None
+def enter():
+    global player, background
+    player = player_ship.Player()
     game_world.add_object(player, 1)
+    background = back_ground.Main_back()
+    game_world.add_object(background, 0)
     pass
 
 
@@ -32,7 +36,7 @@ def handle_events():
             framework.quit()
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
-               framework.quit()
+                framework.push_state(paused)
             else:
                 player.handle_event(event)
 
@@ -47,7 +51,7 @@ def update():
 def draw():
     clear_canvas()
     for o in game_world.all_objects():
-        o.update()
+        o.draw()
     update_canvas()
 
 

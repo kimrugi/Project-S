@@ -1,6 +1,6 @@
 import time
 
-GAME_SIZE = (1280, 720)
+GAME_SIZE = (960, 540)
 
 running = None
 stack = None
@@ -51,7 +51,7 @@ def push_state(state):
     state.enter()
 
 
-def pop_state(state):
+def pop_state():
     global stack
     if len(stack) > 0:
         stack[-1].exit()
