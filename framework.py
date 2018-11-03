@@ -1,5 +1,7 @@
 import time
 
+GAME_SIZE = (1280, 720)
+
 running = None
 stack = None
 frame_time = 0

@@ -24,6 +24,9 @@
     <Compile Include="framework.py" />
     <Compile Include="game_world.py" />
     <Compile Include="main_game.py" />
+    <Compile Include="main_menu.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="player.py" />
     <Compile Include="Project-S.py" />
     <Compile Include="paused.py">
@@ -34,6 +37,7 @@
   <ItemGroup>
     <Content Include="resources\character\player.png" />
     <Content Include="resources\etc\M484BulletCollection1.png" />
+    <Content Include="resources\etc\main menu.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="resources\" />
