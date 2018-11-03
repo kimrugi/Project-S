@@ -23,6 +23,14 @@ def run(start):
         stack[-1].exit()
         stack.pop()
 
+def delete_all_and_change(state):
+    global stack
+    while len(stack) > 0:
+        stack[-1].exit()
+        stack.pop()
+    stack.append(state)
+    stack.enter()
+
 
 def change(state):
     global stack

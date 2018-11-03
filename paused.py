@@ -2,11 +2,19 @@ import framework
 from pico2d import *
 import game_world
 import main_game
+import main_menu
 
-RESUME_GAME, QUIT_GAME = range(2)
+
+NUM_OF_MENUS = 3
+
+RESUME_GAME, GO_TO_MAINMENU, QUIT_GAME = range(NUM_OF_MENUS)
 
 
 selection = RESUME_GAME
+
+selection_table = {RESUME_GAME: framework.pop_state(), GO_TO_MAINMENU: framework.delete_all_and_change(main_menu), QUIT_GAME: framework.quit()
+    
+    }
 
 def init():
     
@@ -14,7 +22,6 @@ def init():
 
 
 def exit():
-    game_world.clear()
     pass
 
 
@@ -34,6 +41,14 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
                framework.pop_state()
+            if event.key == SDLK_UP:
+                if selection == 0:
+                    selection = NUM_OF_MENUS
+                selection -= 1
+            if event.key == SDLK_DOWN:
+                selection = (selection + 1) % NUM_OF_MENUS
+            if event.key == SDLK_SPCAE:
+                selection_table[selection]
 
 
 def update():
