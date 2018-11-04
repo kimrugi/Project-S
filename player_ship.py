@@ -135,10 +135,15 @@ class Player:
     def draw(self):
         self.cur_state.draw(self)
 
+    def size_up(self, size):
+        self.size += size
+
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.event_que.append(key_event)
+        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_l):
+            self.size_up(2)
         pass
 
     pass
