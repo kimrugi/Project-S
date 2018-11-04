@@ -52,7 +52,7 @@ def handle_events():
             if event.key == SDLK_SPACE:
                 if selection == START_GAME:
                     framework.change(main_game)
-                elif selction == QUIT_GAME:
+                elif selection == QUIT_GAME:
                     framework.quit()
 
 def update():
@@ -63,14 +63,14 @@ def update():
 def draw_texts():
     global texts
     if selection == START_GAME:
-        texts.clip_draw(0, 200, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2)
-    texts.clip_draw(0, 0, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2 - 150)
+        texts.clip_draw(0, 200, 500, 100, framework.WINDOW_SIZE[0] // 2, framework.WINDOW_SIZE[1] // 2)
+    texts.clip_draw(0, 0, 500, 100, framework.WINDOW_SIZE[0] // 2, framework.WINDOW_SIZE[1] // 2 - 150)
 
 def draw():
     global texts
     clear_canvas()
-    texts.clip_draw(0, 200, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2)
-    texts.clip_draw(0, 0, 500, 100, framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2 - 150)
+    texts.clip_draw(0, 200, 500, 100, framework.WINDOW_SIZE[0] // 2, framework.WINDOW_SIZE[1] // 2)
+    texts.clip_draw(0, 0, 500, 100, framework.WINDOW_SIZE[0] // 2, framework.WINDOW_SIZE[1] // 2 - 150)
     update_canvas()
 
 

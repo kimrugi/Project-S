@@ -1,6 +1,6 @@
 import time
 
-GAME_SIZE = (960, 540)
+WINDOW_SIZE = (960, 540)
 
 running = None
 stack = None

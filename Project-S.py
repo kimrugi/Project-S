@@ -4,7 +4,7 @@ import main_game
 import main_menu
 import test
 
-open_canvas(framework.GAME_SIZE[0], framework.GAME_SIZE[1], sync=True)
+open_canvas(framework.WINDOW_SIZE[0], framework.WINDOW_SIZE[1], sync=True)
 
 
 

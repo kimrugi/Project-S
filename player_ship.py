@@ -1,25 +1,24 @@
 from pico2d import *
 import framework
+import back_ground
 
-middle = (framework.GAME_SIZE[0] // 2, framework.GAME_SIZE[1] // 2)
-PIXEL_PER_KILOMETER = 1
+middle = (framework.WINDOW_SIZE[0] // 2, framework.WINDOW_SIZE[1] // 2)
+PIXEL_PER_KILOMETER = 5
 RADIAN = 3.14159265359 / 4
 
 
 
-RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP, SPACE_DOWN, SPACE_UP = range(10)
+RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP = range(8)
 
 key_event_table = {
-    (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
-    (SDL_KEYDOWN, SDLK_LEFT): LEFT_DOWN,
-    (SDL_KEYDOWN, SDLK_UP): UP_DOWN,
-    (SDL_KEYDOWN, SDLK_DOWN): DOWN_DOWN,
-    (SDL_KEYUP, SDLK_RIGHT): RIGHT_UP,
-    (SDL_KEYUP, SDLK_LEFT): LEFT_UP,
-    (SDL_KEYUP, SDLK_UP): UP_UP,
-    (SDL_KEYUP, SDLK_DOWN): DOWN_UP,
-    (SDL_KEYDOWN, SDLK_SPACE): SPACE_DOWN,
-    (SDL_KEYUP, SDLK_SPACE): SPACE_UP
+    (SDL_KEYDOWN, SDLK_d): RIGHT_DOWN,
+    (SDL_KEYDOWN, SDLK_a): LEFT_DOWN,
+    (SDL_KEYDOWN, SDLK_w): UP_DOWN,
+    (SDL_KEYDOWN, SDLK_s): DOWN_DOWN,
+    (SDL_KEYUP, SDLK_d): RIGHT_UP,
+    (SDL_KEYUP, SDLK_a): LEFT_UP,
+    (SDL_KEYUP, SDLK_w): UP_UP,
+    (SDL_KEYUP, SDLK_s): DOWN_UP,
 }
 
 next_state_table = {}
@@ -45,7 +44,8 @@ class IdleState:
 
     @staticmethod
     def draw(player):
-        player.idle_image.rotate_draw(RADIAN * player.dir, middle[0], middle[1], player.size, player.size)
+        player.image.clip_composite_draw(300, 800, 100, 100, RADIAN * player.dir, '', middle[0], middle[1], player.size,
+                                         player.size)
         pass
 
 dir_table = { (0, 1): 0, (1, 1): 1, (1, 0): 2, (1, -1): 3, (0, -1): 4, (-1, -1): 5, (-1, 0): 6, (-1, 1): 7 }
@@ -53,25 +53,7 @@ dir_table = { (0, 1): 0, (1, 1): 1, (1, 0): 2, (1, -1): 3, (0, -1): 4, (-1, -1):
 class MoveState:
     @staticmethod
     def enter(player, event):
-        if event == RIGHT_DOWN:
-            player.horizon += player.speed
-        elif event == LEFT_DOWN:
-            player.horizon -= player.speed
-        elif event == RIGHT_UP:
-            player.horizon -= player.speed
-        elif event == LEFT_UP:
-            player.horizon += player.speed
-        elif event == DOWN_DOWN:
-            player.vertical -= player.speed
-        elif event == UP_DOWN:
-            player.vertical += player.speed
-        elif event == DOWN_UP:
-            player.vertical += player.speed
-        elif event == UP_UP:
-            player.vertical -= player.speed
-        ho = clamp(-1, player.horizon, 1)
-        ver = clamp(-1, player.vertical, 1)
-        player.dir = dir_table[ho, ver]
+        pass
 
     @staticmethod
     def exit(player, event):
@@ -79,26 +61,27 @@ class MoveState:
 
     @staticmethod
     def do(player):
+        player.x += player.horizon * framework.frame_time
+        player.y += player.vertical * framework.frame_time
+        player.x = clamp(middle[0], player.x, back_ground.SIZE_X - middle[0])
+        player.y = clamp(middle[1], player.y, back_ground.SIZE_Y - middle[1])
         pass
 
     @staticmethod
     def draw(player):
-        player.move_image.rotate_draw(RADIAN * player.dir, middle[0], middle[1], player.size, player.size)
+        player.image.clip_composite_draw(0, 900, 100, 100, RADIAN * player.dir, '', middle[0], middle[1], player.size, player.size)
         pass
 
 
 class Player:
-    idle_image = None
-    move_image = None
+    image = None
     def __init__(self):
-        self.x = 100
-        self.y = 100
+        self.x = 4200
+        self.y = 4200
         self.size = 50
         self.dir = 1
-        if self.idle_image == None:
-            self.idle_image = load_image('resources\\character\\idle_space_ship.png')
-        if self.move_image == None:
-            self.move_image = load_image('resources\\character\\spaceship.png')
+        if self.image == None:
+            self.image = load_image('resources\\character\\spaceship.png')
         self.vertical = 0
         self.horizon = 0
         self.event_que = []
@@ -110,7 +93,7 @@ class Player:
 
     def calcul_speed(self, kmps):
         self.kmps = kmps
-        self.speed = self.kmps / PIXEL_PER_KILOMETER
+        self.speed = self.kmps * PIXEL_PER_KILOMETER
 
     def fire(self):
         pass
@@ -123,8 +106,31 @@ class Player:
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
+            if event == RIGHT_DOWN:
+                self.horizon += self.speed
+            if event == LEFT_DOWN:
+                self.horizon -= self.speed
+            if event == RIGHT_UP:
+                self.horizon -= self.speed
+            if event == LEFT_UP:
+                self.horizon += self.speed
+            if event == DOWN_DOWN:
+                self.vertical -= self.speed
+            if event == UP_DOWN:
+                self.vertical += self.speed
+            if event == DOWN_UP:
+                self.vertical += self.speed
+            if event == UP_UP:
+                self.vertical -= self.speed
+            ho = clamp(-1, self.horizon, 1)
+            ver = clamp(-1, self.vertical, 1)
+            if (ho, ver) != (0, 0):
+                self.dir = dir_table[ver, ho]
             self.cur_state.exit(self, event)
-            self.cur_state = next_state_table[self.cur_state][event]
+            if self.horizon == 0 and self.vertical == 0:
+                self.cur_state = IdleState
+            else:
+                self.cur_state = MoveState
             self.cur_state.enter(self, event)
     def draw(self):
         self.cur_state.draw(self)
