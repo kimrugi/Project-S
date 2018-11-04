@@ -1,5 +1,7 @@
 from pico2d import *
 import framework
+import game_world
+import bullet
 
 middle = (framework.WINDOW_SIZE[0] // 2, framework.WINDOW_SIZE[1] // 2)
 RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP = range(8)
@@ -72,6 +74,8 @@ class Weapon:
         self.cur_state.enter(self, None)
 
     def fire(self):
+        bull = bullet.Bullet(self)
+        game_world.add_object(bull, 1)
         pass
 
     def update(self):
