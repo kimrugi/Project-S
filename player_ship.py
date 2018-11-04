@@ -17,6 +17,42 @@ key_event_table = {
 image_x, image_y = 192, 512
 
 
+class IdleState:
+    @staticmethod
+    def enter():
+        pass
+
+    @staticmethod
+    def exit():
+        pass
+
+    @staticmethod
+    def do():
+        pass
+
+    @staticmethod
+    def draw():
+        pass
+
+
+class MoveState:
+    @staticmethod
+    def enter():
+        pass
+
+    @staticmethod
+    def exit():
+        pass
+
+    @staticmethod
+    def do():
+        pass
+
+    @staticmethod
+    def draw():
+        pass
+
+
 class Player:
     image = None
     def __init__(self):

@@ -11,7 +11,7 @@ def enter():
     global player, background
     player = player_ship.Player()
     game_world.add_object(player, 1)
-    background = back_ground.Main_back()
+    background = back_ground.Main_back(player)
     game_world.add_object(background, 0)
     pass
 
