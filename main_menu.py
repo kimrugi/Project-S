@@ -15,7 +15,7 @@ selection = START_GAME
 texts = None
 selection = 0
 
-def init():
+def enter():
     global texts, selection
     texts = load_image("resources\\text\\main menu.png")
     selection = START_GAME

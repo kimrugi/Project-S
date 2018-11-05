@@ -11,7 +11,7 @@ def run(start):
     global running, stack
     running = True
     stack = [start]
-    start.init()
+    start.enter()
     current_time = time.time()
     global frame_time
     while running:
