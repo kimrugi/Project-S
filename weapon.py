@@ -66,10 +66,10 @@ class Weapon:
         self.horizon = 0
         self.vertical = 0
         self.event_que = []
-        if self.image == None:
-            self.image = load_image('resources\\character\\w.png')
-        if self.player == None:
-            self.player = player
+        if Weapon.image == None:
+            Weapon.image = load_image('resources\\character\\w.png')
+        if Weapon.player == None:
+            Weapon.player = player
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
 

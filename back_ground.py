@@ -10,10 +10,10 @@ class Star:
     image = None
     player = None
     def __init__(self, player):
-        if self.image == None:
-            self.image = load_image("resources\\background\\star.png")
-        if self.player == None:
-            self.player = player
+        if Star.image == None:
+            Star.image = load_image("resources\\background\\star.png")
+        if Star.player == None:
+            Star.player = player
         self.x = random.randint(0, SIZE_X)
         self.y = random.randint(0, SIZE_Y)
         self.size = random.randint(1, 100)

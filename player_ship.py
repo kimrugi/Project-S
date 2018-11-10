@@ -80,8 +80,8 @@ class Player:
         self.y = 4200
         self.size = 50
         self.dir = 1
-        if self.image == None:
-            self.image = load_image('resources\\character\\spaceship.png')
+        if Player.image == None:
+            Player.image = load_image('resources\\character\\spaceship.png')
         self.vertical = 0
         self.horizon = 0
         self.event_que = []

@@ -11,10 +11,10 @@ class Bullet:
         self.x = weapon.player.x
         self.y = weapon.player.y
         self.size = 10
-        if self.image == None:
-            self.image = load_image('resources\\bullet\\bullet1.png')
-        if self.player == None:
-            self.player = weapon.player
+        if Bullet.image == None:
+            Bullet.image = load_image('resources\\bullet\\bullet1.png')
+        if Bullet.player == None:
+            Bullet.player = weapon.player
         self.speed = 200
         self.vertical = weapon.vertical
         self.horizon = weapon.horizon
