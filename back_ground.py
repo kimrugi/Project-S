@@ -1,12 +1,6 @@
 from pico2d import *
-import framework
 import random
-import game_value
-from game_value import middle
 SIZE_X, SIZE_Y = 8400, 8400
-
-
-650, 587
 
 class Star:
     image = None
