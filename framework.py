@@ -1,7 +1,5 @@
 import time
 
-WINDOW_SIZE = (960, 540)
-
 running = None
 stack = None
 frame_time = 0

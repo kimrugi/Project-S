@@ -1,8 +1,8 @@
 from pico2d import *
 import framework
 import back_ground
+from game_value import middle
 
-middle = (framework.WINDOW_SIZE[0] // 2, framework.WINDOW_SIZE[1] // 2)
 PIXEL_PER_KILOMETER = 5
 RADIAN = 3.14159265359 / 4
 
@@ -43,8 +43,8 @@ class IdleState:
         pass
 
     @staticmethod
-    def draw(player):
-        player.image.clip_composite_draw(300, 800, 100, 100, RADIAN * player.dir, '', middle[0], middle[1], player.size,
+    def draw(player, screen):
+        player.image.clip_composite_draw(300, 800, 100, 100, RADIAN * player.dir, '', player.x - screen.x, player.y - screen.y, player.size,
                                          player.size)
         pass
 
@@ -68,8 +68,8 @@ class MoveState:
         pass
 
     @staticmethod
-    def draw(player):
-        player.image.clip_composite_draw(0, 900, 100, 100, RADIAN * player.dir, '', middle[0], middle[1], player.size, player.size)
+    def draw(player, screen):
+        player.image.clip_composite_draw(0, 900, 100, 100, RADIAN * player.dir, '', player.x - screen.x, player.y - screen.y, player.size, player.size)
         pass
 
 
@@ -132,8 +132,8 @@ class Player:
             else:
                 self.cur_state = MoveState
             self.cur_state.enter(self, event)
-    def draw(self):
-        self.cur_state.draw(self)
+    def draw(self, screen):
+        self.cur_state.draw(self, screen)
 
     def size_up(self, size):
         self.size += size

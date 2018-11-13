@@ -1,0 +1,2 @@
+WINDOW_SIZE = (960, 540)
+middle = (WINDOW_SIZE[0] // 2, WINDOW_SIZE[1] // 2)

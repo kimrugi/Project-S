@@ -1,9 +1,10 @@
 from pico2d import *
 import framework
+import game_value
 import game_world
 import bullet
 
-middle = (framework.WINDOW_SIZE[0] // 2, framework.WINDOW_SIZE[1] // 2)
+middle = (game_value.WINDOW_SIZE[0] // 2, game_value.WINDOW_SIZE[1] // 2)
 RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP = range(8)
 
 key_event_table = {(SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
@@ -113,7 +114,7 @@ class Weapon:
             key_event = key_event_table[(event.type, event.key)]
             self.event_que.append(key_event)
 
-    def draw(self):
-        self.image.rotate_draw(RADIAN * self.dir, middle[0], middle[1], self.player.size,
+    def draw(self, screen):
+        self.image.rotate_draw(RADIAN * self.dir, self.player.x - screen.x, self.player.y - screen.y, self.player.size,
                                          self.player.size)
     pass
