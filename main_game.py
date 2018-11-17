@@ -47,7 +47,7 @@ def handle_events():
         if event.type == SDL_QUIT:
             framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                framework.push_state(paused)
+            framework.push_state(paused)
         else:
             player.handle_event(event)
             player_weapon.handle_event(event)
@@ -68,6 +68,7 @@ def draw():
     update_canvas()
 
 
-
+def get_player():
+    return player
 
 
