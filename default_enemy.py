@@ -7,6 +7,7 @@ PIXEL_PER_KILOMETER = 5
 QUAD_PI = math.pi / 4
 HALF_OF_QUAD_PI = QUAD_PI / 2
 
+
 class DefaultEnemy:
     image = None
 
@@ -16,19 +17,20 @@ class DefaultEnemy:
         self.size = 50
         if DefaultEnemy.image is None:
             DefaultEnemy.image = load_image('')
-        self.kmps = 16
+        self.kmps = 5
+        self.chase_kmps = 16
         self.speed = None
         self.vertical = 0
         self.horizon = 0
         self.calcul_speed(self.kmps)
         self.dir = math.pi
         self.detect_range = 500
+        self.bt = None
+        self.build_behavior_tree()
         pass
 
     def calcul_speed(self, kmps):
-        self.kmps = kmps
-        self.speed = self.kmps * PIXEL_PER_KILOMETER
-    pass
+        self.speed = kmps * PIXEL_PER_KILOMETER
 
     def find_player(self):
         player = main_game.get_player()
@@ -39,8 +41,19 @@ class DefaultEnemy:
         else:
             return BehaviorTree.FAIL
 
-    
+    def move_to_player(self):
+        self.calcul_speed(self.chase_kmps)
+        return BehaviorTree.SUCCESS
 
+    def build_behavior_tree(self):
+        find_player_node = LeafNode("Find Player", self.find_player)
+        move_to_player_node = LeafNode("Chase", self.move_to_player)
+        chase_node = SequenceNode("Chase")
+        chase_node.add_children(find_player_node, move_to_player_node)
+        self.bt = BehaviorTree(chase_node)
+
+    def update(self):
+        pass
 
 def rounds_pi(theta):
     result = theta + HALF_OF_QUAD_PI % QUAD_PI
