@@ -8,7 +8,8 @@ PIXEL_PER_KILOMETER = 5
 QUAD_PI = math.pi / 4
 HALF_OF_QUAD_PI = QUAD_PI / 2
 
-LEFT, UP, RIGHT, BOTTOM = 0, 11, 90, 51
+LEFT, UP, RIGHT, BOTTOM = 0, 44, 90, 3
+IMAGE_WIDTH, IMAGE_HEIGHT = 90, 41
 
 
 
@@ -59,12 +60,12 @@ class DefaultEnemy:
 
     def update(self):
         self.bt.run()
-        self.x += self.speed * math.cos(self.dir) * framework.frame_time
-        self.y += self.speed * math.sin(self.dir) * framework.frame_time
+        self.x += self.speed * math.sin(self.dir) * framework.frame_time
+        self.y += self.speed * math.cos(self.dir) * framework.frame_time
         pass
 
     def draw(self, screen):
-        DefaultEnemy.image.clip_draw(LEFT, UP, RIGHT, BOTTOM, self.x - screen.x, self.y - screen.y, self.size * 2, self.size)
+        DefaultEnemy.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y, self.size * 2, self.size)
 
 def rounds_pi(theta):
     result = (theta - HALF_OF_QUAD_PI) % QUAD_PI
