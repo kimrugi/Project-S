@@ -1,16 +1,33 @@
 from pico2d import *
+import math
 
-class Enemy:
+PIXEL_PER_KILOMETER = 5
+QUAD_PI = math.pi / 4
+
+class DefaultEnemy:
     image = None
 
     def __init__(self):
         self.x = 100
         self.y = 100
-        self.size = 0
-        if Enemy.image is None:
-            Enemy.image = load_image('')
-        self.speed = 0.2
+        self.size = 50
+        if DefaultEnemy.image is None:
+            DefaultEnemy.image = load_image('')
+        self.kmps = 16
+        self.speed = None
         self.vertical = 0
         self.horizon = 0
+        self.calcul_speed(self.kmps)
+        self.dir = math.pi
         pass
+    def calcul_speed(self, kmps):
+        self.kmps = kmps
+        self.speed = self.kmps * PIXEL_PER_KILOMETER
+    pass
+
+
+
+
+
+def rounds_pi(theta):
     pass
