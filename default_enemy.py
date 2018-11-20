@@ -1,6 +1,7 @@
 from pico2d import *
 import math
 import main_game
+import framework
 from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 
 PIXEL_PER_KILOMETER = 5
@@ -53,8 +54,13 @@ class DefaultEnemy:
         self.bt = BehaviorTree(chase_node)
 
     def update(self):
+        self.bt.run()
+        self.x += self.speed * math.cos(self.dir) * framework.frame_time
+        self.y += self.speed * math.sin(self.dir) * framework.frame_time
+
         pass
 
+    
 def rounds_pi(theta):
     result = theta + HALF_OF_QUAD_PI % QUAD_PI
     return result
