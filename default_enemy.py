@@ -3,6 +3,7 @@ import math
 
 PIXEL_PER_KILOMETER = 5
 QUAD_PI = math.pi / 4
+HALF_OF_QUAD_PI = QUAD_PI / 2
 
 class DefaultEnemy:
     image = None
@@ -30,4 +31,5 @@ class DefaultEnemy:
 
 
 def rounds_pi(theta):
-    pass
+    result = theta + HALF_OF_QUAD_PI % QUAD_PI
+    return result
