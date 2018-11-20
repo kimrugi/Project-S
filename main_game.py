@@ -7,19 +7,23 @@ import back_ground
 import paused
 import weapon
 import screen
+import default_enemy
 
 player = None
 background = None
 player_weapon = None
 back_screen = None
+enemy = None
 
 def enter():
-    global player, background, player_weapon, back_screen
+    global player, background, player_weapon, back_screen, enemy
     player = player_ship.Player()
     game_world.add_object(player, 1)
     background = load_image('resources\\background\\black.png')
     player_weapon = weapon.Weapon(player)
     game_world.add_object(player_weapon, 1)
+    enemy = default_enemy.DefaultEnemy()
+    game_world.add_object(enemy, 1)
     back_screen = screen.Screen(player)
     game_world.add_object(back_screen, 0)
     for i in range(1000):

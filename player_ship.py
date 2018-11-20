@@ -85,7 +85,7 @@ class Player:
         self.vertical = 0
         self.horizon = 0
         self.event_que = []
-        self.kmps = 15
+        self.kmps = 30
         self.speed = None
         self.calcul_speed(self.kmps)
         self.cur_state = IdleState
