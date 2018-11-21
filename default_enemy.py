@@ -60,12 +60,12 @@ class DefaultEnemy:
     def build_behavior_tree(self):
         find_player_node = LeafNode("Find Player", self.find_player)
         move_to_player_node = LeafNode("Chase", self.move_to_player)
-        shoot_to_player = LeafNode("Shoot", self.shoot)
+        shoot_to_player = LeafNode("Shoot", self.attack)
         chase_node = SequenceNode("Chase")
         chase_node.add_children(find_player_node, move_to_player_node, shoot_to_player)
         self.bt = BehaviorTree(chase_node)
 
-    def shoot(self):
+    def attack(self):
         self.shoot_delay += framework.frame_time
         if self.shoot_delay > self.shoot_speed:
             player = main_game.get_player()
@@ -73,7 +73,6 @@ class DefaultEnemy:
             Bullet = bullet.Bullet(self.x, self.y, player.x - self.x, player.y - self.y, self)
             game_world.add_object(Bullet, 1)
         return BehaviorTree.SUCCESS
-
 
     def update(self):
         self.bt.run()
