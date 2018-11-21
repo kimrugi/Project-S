@@ -3,7 +3,8 @@ import math
 import main_game
 import framework
 from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
-
+import bullet
+import game_world
 PIXEL_PER_KILOMETER = 5
 QUAD_PI = math.pi / 4
 HALF_OF_QUAD_PI = QUAD_PI / 2
@@ -16,12 +17,15 @@ IMAGE_WIDTH, IMAGE_HEIGHT = 90, 41
 class DefaultEnemy:
     image = None
 
+    def load_image(self):
+        if DefaultEnemy.image is None:
+            DefaultEnemy.image = load_image('resources\\character\\enemys.png')
+
     def __init__(self):
         self.x = 4000
         self.y = 4000
         self.size = 50
-        if DefaultEnemy.image is None:
-            DefaultEnemy.image = load_image('resources\\character\\enemys.png')
+        self.load_image()
         self.kmps = 5
         self.chase_kmps = 16
         self.speed = None
@@ -30,6 +34,8 @@ class DefaultEnemy:
         self.calcul_speed(self.kmps)
         self.dir = math.pi / 4
         self.detect_range = 500
+        self.shoot_speed = 0.5
+        self.shoot_delay = 0
         self.bt = None
         self.build_behavior_tree()
         pass
@@ -41,8 +47,8 @@ class DefaultEnemy:
         player = main_game.get_player()
         distance = (player.x - self.x) ** 2 + (player.y - self.y) ** 2
         if distance < self.detect_range ** 2:
-            #self.dir = rounds_pi(math.atan2(player.x - self.x, player.y - self.y))
-            self.dir = math.atan2(player.x - self.x, player.y - self.y)
+            self.dir = rounds_pi(math.atan2(player.x - self.x, player.y - self.y))
+            #self.dir = math.atan2(player.x - self.x, player.y - self.y)
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -54,9 +60,20 @@ class DefaultEnemy:
     def build_behavior_tree(self):
         find_player_node = LeafNode("Find Player", self.find_player)
         move_to_player_node = LeafNode("Chase", self.move_to_player)
+        shoot_to_player = LeafNode("Shoot", self.shoot)
         chase_node = SequenceNode("Chase")
-        chase_node.add_children(find_player_node, move_to_player_node)
+        chase_node.add_children(find_player_node, move_to_player_node, shoot_to_player)
         self.bt = BehaviorTree(chase_node)
+
+    def shoot(self):
+        self.shoot_delay += framework.frame_time
+        if self.shoot_delay > self.shoot_speed:
+            player = main_game.get_player()
+            self.shoot_delay -= self.shoot_speed
+            Bullet = bullet.Bullet(self.x, self.y, player.x - self.x, player.y - self.y, self)
+            game_world.add_object(Bullet, 1)
+        return BehaviorTree.SUCCESS
+
 
     def update(self):
         self.bt.run()
@@ -68,7 +85,8 @@ class DefaultEnemy:
         DefaultEnemy.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y, self.size * 2, self.size)
 
 def rounds_pi(theta):
-    result = (theta - HALF_OF_QUAD_PI) % QUAD_PI
+    rounds = theta + HALF_OF_QUAD_PI
+    result = rounds - rounds % QUAD_PI
     return result
 
 

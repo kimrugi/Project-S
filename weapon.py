@@ -75,7 +75,7 @@ class Weapon:
         self.cur_state.enter(self, None)
 
     def fire(self):
-        bull = bullet.Bullet(self.player.x, self.player.y, self.vertical, self.horizon)
+        bull = bullet.Bullet(self.player.x, self.player.y, self.horizon, self.vertical, self.player)
         game_world.add_object(bull, 1)
         pass
 
