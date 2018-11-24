@@ -13,7 +13,6 @@ LEFT, UP, RIGHT, BOTTOM = 0, 44, 90, 3
 IMAGE_WIDTH, IMAGE_HEIGHT = 90, 41
 
 
-
 class DefaultEnemy:
     image = None
 
@@ -24,9 +23,9 @@ class DefaultEnemy:
     def reset_status(self):
         pass
 
-    def __init__(self):
-        self.x = 4000
-        self.y = 4000
+    def __init__(self, x=4000, y=4000):
+        self.x = x
+        self.y = y
         self.size = 50
         self.load_image()
         self.kmps = 5
@@ -34,17 +33,18 @@ class DefaultEnemy:
         self.speed = None
         self.vertical = 0
         self.horizon = 0
-        self.calcul_speed(self.kmps)
+        self.set_speed(self.kmps)
         self.dir = math.pi / 4
         self.detect_range = 500
         self.shoot_speed = 0.5
-        self.shoot_delay = 0
+        self.shoot_count = 0
         self.bt = None
         self.build_behavior_tree()
         self.reset_status()
         pass
 
-    def calcul_speed(self, kmps):
+    def set_speed(self, kmps):
+        self.kmps = kmps
         self.speed = kmps * PIXEL_PER_KILOMETER
 
     def find_player(self):
@@ -58,7 +58,6 @@ class DefaultEnemy:
             return BehaviorTree.FAIL
 
     def move_to_player(self):
-        self.calcul_speed(self.chase_kmps)
         return BehaviorTree.SUCCESS
 
     def build_behavior_tree(self):
@@ -70,10 +69,10 @@ class DefaultEnemy:
         self.bt = BehaviorTree(chase_node)
 
     def attack(self):
-        self.shoot_delay += framework.frame_time
-        if self.shoot_delay > self.shoot_speed:
+        self.shoot_count += framework.frame_time
+        if self.shoot_count > self.shoot_speed:
             player = main_game.get_player()
-            self.shoot_delay -= self.shoot_speed
+            self.shoot_count -= self.shoot_speed
             Bullet = bullet.Bullet(self.x, self.y, player.x - self.x, player.y - self.y, self)
             game_world.add_object(Bullet, 1)
         return BehaviorTree.SUCCESS

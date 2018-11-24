@@ -9,6 +9,7 @@ import weapon
 import screen
 import default_enemy
 import nokkey
+import Flatter
 player = None
 background = None
 player_weapon = None
@@ -23,6 +24,8 @@ def enter():
     player_weapon = weapon.Weapon(player)
     game_world.add_object(player_weapon, 1)
     enemy = nokkey.Nokkey()
+    game_world.add_object(enemy, 1)
+    enemy = Flatter.Flatter()
     game_world.add_object(enemy, 1)
     back_screen = screen.Screen(player)
     game_world.add_object(back_screen, 0)
