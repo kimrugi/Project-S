@@ -21,6 +21,9 @@ class DefaultEnemy:
         if DefaultEnemy.image is None:
             DefaultEnemy.image = load_image('resources\\character\\enemys.png')
 
+    def reset_status(self):
+        pass
+
     def __init__(self):
         self.x = 4000
         self.y = 4000
@@ -38,6 +41,7 @@ class DefaultEnemy:
         self.shoot_delay = 0
         self.bt = None
         self.build_behavior_tree()
+        self.reset_status()
         pass
 
     def calcul_speed(self, kmps):
