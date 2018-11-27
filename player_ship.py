@@ -52,6 +52,7 @@ dir_table = { (0, 1): 0, (1, 1): 1, (1, 0): 2, (1, -1): 3, (0, -1): 4, (-1, -1):
 class MoveState:
     @staticmethod
     def enter(player, event):
+
         pass
 
     @staticmethod
@@ -68,7 +69,8 @@ class MoveState:
 
     @staticmethod
     def draw(player, screen):
-        player.image.clip_composite_draw(0, 900, 100, 100, RADIAN * player.dir, '', player.x - screen.x, player.y - screen.y, player.size, player.size)
+        player.image.clip_composite_draw(0, 900, 100, 100, RADIAN * player.dir, '', player.x - screen.x,
+                                         player.y - screen.y, player.size, player.size)
         pass
 
 
@@ -152,7 +154,7 @@ class Player:
             self.size_up(2)
         pass
     def crash_by(self, other):
-        print("aaaa")
+        pass
     pass
 
 

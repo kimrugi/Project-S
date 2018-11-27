@@ -30,19 +30,16 @@ def collide(a, b):
 
 def enter():
     global player, background, player_weapon, back_screen, enemys
-    player = player_ship.Player()
-    game_world.add_object(player, 1)
     background = load_image('resources\\background\\black.png')
-    player_weapon = weapon.Weapon(player)
-    game_world.add_object(player_weapon, 1)
-    enemy = nokkey.Nokkey()
-    enemys.append(enemy)
-    game_world.add_object(enemy, 1)
-    enemy = Flatter.Flatter()
-    enemys.append(enemy)
-    game_world.add_object(enemy, 1)
+    player = player_ship.Player()
     back_screen = screen.Screen(player)
-    game_world.add_object(back_screen, 0)
+    player_weapon = weapon.Weapon(player)
+    #enemy = Flatter.Flatter()
+    #enemys.append(enemy)
+    #game_world.add_object(enemy, 1)
+    game_world.add_object(player, 1)
+    game_world.add_object(back_screen, 1)
+    game_world.add_object(player_weapon, 1)
     for i in range(1000):
         star = back_ground.Star(player)
         game_world.add_object(star, 0)
@@ -69,6 +66,11 @@ def handle_events():
             framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             framework.push_state(paused)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            back_screen.lock_screen()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_z:
+            back_screen.unlock_screen()
+
         else:
             player.handle_event(event)
             player_weapon.handle_event(event)

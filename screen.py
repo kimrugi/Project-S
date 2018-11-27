@@ -6,7 +6,8 @@ SIZE_X, SIZE_Y = 8400, 8400
 
 PIXEL_PER_KILOMETER = 5
 SCREEN_MOVE_SPEED = 300
-
+WINDOW_SIZE = (960, 540)
+MIDDLE = (WINDOW_SIZE[0] // 2, WINDOW_SIZE[1] // 2)
 LOCK, LOCK_TO_UNLOCK, UNLOCK = range(3)
 
 class LockedState:
@@ -64,8 +65,8 @@ class UnlockedState:
 
     @staticmethod
     def do(screen):
-        screen.x = screen.player.x - game_value.middle[0]
-        screen.y = screen.player.y - game_value.middle[1]
+        screen.x = int(screen.player.x - MIDDLE[0])
+        screen.y = int(screen.player.y - MIDDLE[1])
 
     @staticmethod
     def draw(one, screen):
