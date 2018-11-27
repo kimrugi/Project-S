@@ -151,7 +151,8 @@ class Player:
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_l):
             self.size_up(2)
         pass
-
+    def crash_by(self, other):
+        print("aaaa")
     pass
 
 
