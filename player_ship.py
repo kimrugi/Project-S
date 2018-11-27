@@ -95,6 +95,10 @@ class Player:
         self.kmps = kmps
         self.speed = self.kmps * PIXEL_PER_KILOMETER
 
+    def get_bb(self):
+        half_size = self.size / 2
+        return self.x - half_size, self.y - half_size, self.x + half_size, self.y + half_size
+
     def move(self):
         self.x = self.x + self.horizon * self.speed
         self.y = self.y + self.vertical * self.speed

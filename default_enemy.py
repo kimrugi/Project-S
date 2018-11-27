@@ -27,6 +27,7 @@ class DefaultEnemy:
         self.x = x
         self.y = y
         self.size = 50
+        self.size_propotion = IMAGE_WIDTH / IMAGE_HEIGHT
         self.load_image()
         self.kmps = 5
         self.chase_kmps = 16
@@ -42,6 +43,15 @@ class DefaultEnemy:
         self.build_behavior_tree()
         self.reset_status()
         pass
+
+    def get_bb(self):
+        x_size = self.size * self.size_propotion / 2
+        y_size = self.size / 2
+        left = self.x - x_size
+        up = self.y - y_size
+        right = self.x + x_size
+        down = self.y + y_size
+        return left, up, right, down
 
     def set_speed(self, kmps):
         self.kmps = kmps
@@ -84,7 +94,8 @@ class DefaultEnemy:
         pass
 
     def draw(self, screen):
-        DefaultEnemy.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y, self.size * 2, self.size)
+        DefaultEnemy.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y,
+                                     self.size * self.size_propotion, self.size)
 
 def rounds_pi(theta):
     rounds = theta + HALF_OF_QUAD_PI
