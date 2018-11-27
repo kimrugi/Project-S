@@ -67,6 +67,7 @@ class Weapon:
         self.horizon = 0
         self.vertical = 0
         self.event_que = []
+        self.shoot_speed = 100
         if Weapon.image == None:
             Weapon.image = load_image('resources\\character\\w.png')
         if Weapon.player == None:
@@ -75,7 +76,7 @@ class Weapon:
         self.cur_state.enter(self, None)
 
     def fire(self):
-        bull = bullet.Bullet(self.player.x, self.player.y, self.horizon, self.vertical, self.player)
+        bull = bullet.Bullet(self.player.x, self.player.y, self.horizon, self.vertical, self.player, 100)
         game_world.add_object(bull, 1)
         pass
 

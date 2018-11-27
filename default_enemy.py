@@ -36,7 +36,7 @@ class DefaultEnemy:
         self.set_speed(self.kmps)
         self.dir = math.pi / 4
         self.detect_range = 500
-        self.shoot_speed = 0.5
+        self.shoot_delay = 0.5
         self.shoot_count = 0
         self.bt = None
         self.build_behavior_tree()
@@ -70,9 +70,9 @@ class DefaultEnemy:
 
     def attack(self):
         self.shoot_count += framework.frame_time
-        if self.shoot_count > self.shoot_speed:
+        if self.shoot_count > self.shoot_delay:
             player = main_game.get_player()
-            self.shoot_count -= self.shoot_speed
+            self.shoot_count -= self.shoot_delay
             Bullet = bullet.Bullet(self.x, self.y, player.x - self.x, player.y - self.y, self)
             game_world.add_object(Bullet, 1)
         return BehaviorTree.SUCCESS

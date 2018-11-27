@@ -23,14 +23,15 @@ class Nokkey(default_enemy.DefaultEnemy):
     def reset_status(self):
         self.size = 25
         self.set_speed(40)
+        self.shoot_delay = 3
         pass
 
     def attack(self):
         self.shoot_count += framework.frame_time
-        if self.shoot_count > self.shoot_speed:
+        if self.shoot_count > self.shoot_delay:
             player = main_game.get_player()
-            self.shoot_count -= self.shoot_speed
-            Bullet = bullet.Bullet(self.x, self.y, player.x - self.x, player.y - self.y, self)
+            self.shoot_count -= self.shoot_delay
+            Bullet = bullet.Bullet(self.x, self.y, player.x - self.x, player.y - self.y, self, 500)
             game_world.add_object(Bullet, 1)
         return BehaviorTree.SUCCESS
         pass

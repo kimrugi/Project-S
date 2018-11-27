@@ -7,14 +7,14 @@ BULLET_POSITION = -(int(190 - IMAGE_SIZE[1]))
 class Bullet:
     image = None
 
-    def __init__(self, x, y, horizon, vertical, shooter):
+    def __init__(self, x, y, horizon, vertical, shooter, shoot_speed):
         self.x = x
         self.y = y
         self.size = 10
         if Bullet.image == None:
             Bullet.image = load_image('resources\\bullet\\bullet1.png')
         self.ignore_list = [shooter]
-        self.speed = 200
+        self.speed = shoot_speed
         self.dir = math.atan2(horizon, vertical)
         pass
 

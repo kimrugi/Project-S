@@ -2,11 +2,11 @@ from pico2d import *
 import framework
 import back_ground
 from game_value import middle
-
+import math
 PIXEL_PER_KILOMETER = 5
 RADIAN = 3.14159265359 / 4
 
-
+TURNING_SPEED_PER_SECOND = math.pi / 10
 
 RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP = range(8)
 
@@ -23,15 +23,14 @@ key_event_table = {
 
 next_state_table = {}
 
-
 image_x, image_y = 100, 100
 
 
 class IdleState:
     @staticmethod
     def enter(player, event):
-        player.vertical = 0
-        player.horizon = 0
+        #player.vertical = 0
+        #player.horizon = 0
         pass
 
     @staticmethod
@@ -61,8 +60,8 @@ class MoveState:
 
     @staticmethod
     def do(player):
-        player.x += player.horizon * framework.frame_time
-        player.y += player.vertical * framework.frame_time
+        player.x += player.horizon * player.speed * framework.frame_time
+        player.y += player.vertical * player.speed * framework.frame_time
         player.x = clamp(middle[0], player.x, back_ground.SIZE_X - middle[0])
         player.y = clamp(middle[1], player.y, back_ground.SIZE_Y - middle[1])
         pass
@@ -79,11 +78,12 @@ class Player:
         self.x = 4200
         self.y = 4200
         self.size = 50
-        self.dir = 1
+        self.to_dir = 1
         if Player.image == None:
             Player.image = load_image('resources\\character\\spaceship.png')
         self.vertical = 0
         self.horizon = 0
+        self.dir = 0
         self.event_que = []
         self.kmps = 30
         self.speed = None
@@ -95,43 +95,45 @@ class Player:
         self.kmps = kmps
         self.speed = self.kmps * PIXEL_PER_KILOMETER
 
-    def fire(self):
-        pass
-
     def move(self):
         self.x = self.x + self.horizon * self.speed
         self.y = self.y + self.vertical * self.speed
+
+    def turn_to(self):
+        self.dir += math.pi
+
+        pass
 
     def update(self):
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
             if event == RIGHT_DOWN:
-                self.horizon += self.speed
+                self.horizon += 1
             if event == LEFT_DOWN:
-                self.horizon -= self.speed
+                self.horizon -= 1
             if event == RIGHT_UP:
-                self.horizon -= self.speed
+                self.horizon -= 1
             if event == LEFT_UP:
-                self.horizon += self.speed
+                self.horizon += 1
             if event == DOWN_DOWN:
-                self.vertical -= self.speed
+                self.vertical -= 1
             if event == UP_DOWN:
-                self.vertical += self.speed
+                self.vertical += 1
             if event == DOWN_UP:
-                self.vertical += self.speed
+                self.vertical += 1
             if event == UP_UP:
-                self.vertical -= self.speed
-            ho = clamp(-1, self.horizon, 1)
-            ver = clamp(-1, self.vertical, 1)
-            if (ho, ver) != (0, 0):
-                self.dir = dir_table[ver, ho]
+                self.vertical -= 1
+            if (self.horizon, self.vertical) != (0, 0):
+                self.dir = dir_table[self.vertical, self.horizon]
+            self.to_dir = math.atan2(self.horizon, self.vertical)
             self.cur_state.exit(self, event)
             if self.horizon == 0 and self.vertical == 0:
                 self.cur_state = IdleState
             else:
                 self.cur_state = MoveState
             self.cur_state.enter(self, event)
+
     def draw(self, screen):
         self.cur_state.draw(self, screen)
 

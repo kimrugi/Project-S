@@ -19,12 +19,13 @@ class Flatter(default_enemy.DefaultEnemy):
 
     def reset_status(self):
         self.set_speed(10)
+        self.shoot_delay = 5
         pass
 
     def attack(self):
         self.shoot_count += framework.frame_time
-        if self.shoot_count > self.shoot_speed:
-            self.shoot_count -= self.shoot_speed
+        if self.shoot_count > self.shoot_delay:
+            self.shoot_count -= self.shoot_delay
             self.spawn_nokkeys()
 
     def spawn_nokkeys(self):
