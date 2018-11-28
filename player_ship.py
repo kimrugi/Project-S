@@ -11,6 +11,7 @@ RADIAN = 3.14159265359 / 4
 TURNING_SPEED_PER_SECOND = math.pi / 10
 
 RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP = range(8)
+DAMAGED_EFFECT = 0.5
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_d): RIGHT_DOWN,
@@ -90,6 +91,8 @@ class Player:
         self.vertical = 0
         self.horizon = 0
         self.dir = 0
+        self.is_invincible = 0
+        self.invincible_time = 0.5
         self.event_que = []
         self.kmps = 30
         self.speed = None
@@ -143,6 +146,10 @@ class Player:
             else:
                 self.cur_state = MoveState
             self.cur_state.enter(self, event)
+        if self.is_invincible:
+            if get_time() - self.damaged_time > 0.5:
+                self.image.opacify(1)
+                self.is_invincible = 0
 
     def draw(self, screen):
         self.cur_state.draw(self, screen)
@@ -158,10 +165,18 @@ class Player:
             self.size_up(2)
         pass
 
+    def damaged_effect(self):
+        self.image.opacify(DAMAGED_EFFECT)
+        self.damaged_time = get_time()
+        self.is_invincible = 1
+        pass
+
     def get_damaged(self, damage):
-        self.HP -= damage
-        if self.HP < 0:
-            main_game.add_delete_list(self)
+        if not self.is_invincible:
+            self.HP -= damage
+            self.damaged_effect()
+            if self.HP < 0:
+                main_game.add_delete_list(self)
 
     def crash_by_enemy(self, other):
         self.get_damaged(other.damage_amount)

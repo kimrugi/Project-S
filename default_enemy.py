@@ -11,7 +11,7 @@ HALF_OF_QUAD_PI = QUAD_PI / 2
 
 LEFT, UP, RIGHT, BOTTOM = 0, 44, 90, 3
 IMAGE_WIDTH, IMAGE_HEIGHT = 90, 41
-
+DAMAGED_EFFECT = 0.5
 
 class DefaultEnemy:
     image = None
@@ -34,6 +34,8 @@ class DefaultEnemy:
         self.speed = None
         self.vertical = 0
         self.horizon = 0
+        self.is_effect = 0
+        self.effect_time = 0.3
         self.set_speed(self.kmps)
         self.dir = math.pi / 4
         self.detect_range = 500
@@ -47,8 +49,8 @@ class DefaultEnemy:
         pass
 
     def get_bb(self):
-        x_size = self.size * self.size_propotion / 2
-        y_size = self.size / 2
+        x_size = self.size * self.size_propotion / 3
+        y_size = self.size / 3
         left = self.x - x_size
         up = self.y - y_size
         right = self.x + x_size
@@ -110,6 +112,8 @@ class DefaultEnemy:
             self.get_damaged(other.damage)
             main_game.add_delete_list(other)
             return
+
+
 def rounds_pi(theta):
     rounds = theta + HALF_OF_QUAD_PI
     result = rounds - rounds % QUAD_PI

@@ -10,8 +10,9 @@ PIXEL_PER_KILOMETER = 5
 QUAD_PI = math.pi / 4
 HALF_OF_QUAD_PI = QUAD_PI / 2
 
-LEFT, BOTTOM = 100, 0
-IMAGE_WIDTH, IMAGE_HEIGHT = 76, 56
+LEFT, BOTTOM = 104, 3
+
+IMAGE_WIDTH, IMAGE_HEIGHT = 172 - 104, 306 - 257
 SIZE_PROPOTION = IMAGE_WIDTH / IMAGE_HEIGHT
 
 
@@ -26,6 +27,7 @@ class Nokkey(default_enemy.DefaultEnemy):
         self.shoot_delay = 3
         self.damage_amount = 5
         self.HP = 12
+        self.size_propotion = SIZE_PROPOTION
         pass
 
     def attack(self):
