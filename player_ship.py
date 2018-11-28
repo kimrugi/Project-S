@@ -3,6 +3,8 @@ import framework
 import back_ground
 from game_value import middle
 import math
+from bullet import Bullet
+import game_world
 PIXEL_PER_KILOMETER = 5
 RADIAN = 3.14159265359 / 4
 
@@ -23,7 +25,7 @@ key_event_table = {
 
 next_state_table = {}
 
-image_x, image_y = 100, 100
+IMAGE_X, IMAGE_Y = 80 - 12, 80 - 18
 
 
 class IdleState:
@@ -43,7 +45,7 @@ class IdleState:
 
     @staticmethod
     def draw(player, screen):
-        player.image.clip_composite_draw(300, 800, 100, 100, RADIAN * player.dir, '', player.x - screen.x, player.y - screen.y, player.size,
+        player.image.clip_composite_draw(310, 820, IMAGE_X, IMAGE_Y, RADIAN * player.dir, '', player.x - screen.x, player.y - screen.y, player.size,
                                          player.size)
         pass
 
@@ -69,7 +71,7 @@ class MoveState:
 
     @staticmethod
     def draw(player, screen):
-        player.image.clip_composite_draw(0, 900, 100, 100, RADIAN * player.dir, '', player.x - screen.x,
+        player.image.clip_composite_draw(12, 920, IMAGE_X, IMAGE_Y, RADIAN * player.dir, '', player.x - screen.x,
                                          player.y - screen.y, player.size, player.size)
         pass
 
@@ -79,6 +81,8 @@ class Player:
     def __init__(self):
         self.x = 4200
         self.y = 4200
+        self.max_HP = 50
+        self.HP = self.max_HP
         self.size = 50
         self.to_dir = 1
         if Player.image == None:
@@ -153,8 +157,22 @@ class Player:
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_l):
             self.size_up(2)
         pass
-    def crash_by(self, other):
+
+    def get_damaged(self, damage):
+        self.HP -= damage
+        if self.HP <= 0:
+            pass
+
+    def crash_by_enemy(self, other):
+        self.get_damaged(other.damage_amount)
         pass
+
+    def crash_by_bullet(self, other):
+        if not (self in other.ignore_list):
+            self.get_damaged(other.damage)
+            game_world.remove_object(other)
+            del other
+            return
     pass
 
 

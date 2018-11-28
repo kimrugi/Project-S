@@ -91,6 +91,9 @@ class Screen:
         self.cur_state = UnlockedState
         self.cur_state.enter(self, None)
 
+    def get_bb(self):
+        pass
+
     def lock_screen(self):
         self.event_que.append(LOCK)
 

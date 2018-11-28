@@ -7,6 +7,7 @@ import back_ground
 import paused
 import weapon
 import screen
+import bullet
 import default_enemy
 import nokkey
 import Flatter
@@ -15,6 +16,7 @@ background = None
 player_weapon = None
 back_screen = None
 enemys = []
+bullets = []
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -34,9 +36,9 @@ def enter():
     player = player_ship.Player()
     back_screen = screen.Screen(player)
     player_weapon = weapon.Weapon(player)
-    #enemy = Flatter.Flatter()
-    #enemys.append(enemy)
-    #game_world.add_object(enemy, 1)
+    enemy = Flatter.Flatter()
+    enemys.append(enemy)
+    game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
     game_world.add_object(back_screen, 1)
     game_world.add_object(player_weapon, 1)
@@ -79,9 +81,15 @@ def handle_events():
 def update():
     for o in game_world.all_objects():
         o.update()
+    for b in bullets:
+        for e in enemys:
+            if collide(b, e):
+                e.crash_by_bullet(b)
+        if collide(player, b):
+            player.crash_by_bullet(b)
     for e in enemys:
         if collide(player, e):
-            player.crash_by(e)
+            player.crash_by_enemy(e)
     pass
 
 
@@ -99,3 +107,10 @@ def get_player():
 
 def add_enemys(enemy):
     enemys.append(enemy)
+
+def add_bullet(x, y, horizon, vertical, shooter, shoot_speed, damage):
+    bul = bullet.Bullet(x, y, horizon, vertical, shooter, shoot_speed, damage)
+    bullets.append(bul)
+    game_world.add_object(bul, 1)
+
+

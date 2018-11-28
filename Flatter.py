@@ -20,6 +20,7 @@ class Flatter(default_enemy.DefaultEnemy):
     def reset_status(self):
         self.set_speed(10)
         self.shoot_delay = 5
+        self.HP = 20
         pass
 
     def attack(self):
@@ -31,6 +32,7 @@ class Flatter(default_enemy.DefaultEnemy):
     def spawn_nokkeys(self):
         nok = nokkey.Nokkey(self.x - IMAGE_HEIGHT / 2, self.y - IMAGE_HEIGHT / 2)
         game_world.add_object(nok, 1)
+        main_game.add_enemys(nok)
         pass
 
     def draw(self, screen):

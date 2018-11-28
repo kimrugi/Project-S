@@ -2,7 +2,7 @@ from pico2d import *
 import framework
 import game_value
 import game_world
-import bullet
+import main_game
 
 middle = (game_value.WINDOW_SIZE[0] // 2, game_value.WINDOW_SIZE[1] // 2)
 RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP = range(8)
@@ -68,6 +68,7 @@ class Weapon:
         self.vertical = 0
         self.event_que = []
         self.shoot_speed = 100
+        self.damage_amount = 4
         if Weapon.image == None:
             Weapon.image = load_image('resources\\character\\w.png')
         if Weapon.player == None:
@@ -76,8 +77,7 @@ class Weapon:
         self.cur_state.enter(self, None)
 
     def fire(self):
-        bull = bullet.Bullet(self.player.x, self.player.y, self.horizon, self.vertical, self.player, 300)
-        game_world.add_object(bull, 1)
+        main_game.add_bullet(self.player.x, self.player.y, self.horizon, self.vertical, self.player, 300, self.damage_amount)
         pass
 
     def update(self):

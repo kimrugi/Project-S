@@ -39,6 +39,8 @@ class DefaultEnemy:
         self.detect_range = 500
         self.shoot_delay = 0.5
         self.shoot_count = 0
+        self.damage_amount = 10
+        self.HP = 12
         self.bt = None
         self.build_behavior_tree()
         self.reset_status()
@@ -97,6 +99,12 @@ class DefaultEnemy:
         DefaultEnemy.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y,
                                      self.size * self.size_propotion, self.size)
 
+    def crash_by_bullet(self, other):
+        if not (self in other.ignore_list):
+            self.HP -= other.damage
+            game_world.remove_object(other)
+            del other
+            return
 def rounds_pi(theta):
     rounds = theta + HALF_OF_QUAD_PI
     result = rounds - rounds % QUAD_PI
