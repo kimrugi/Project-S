@@ -17,7 +17,7 @@ player_weapon = None
 back_screen = None
 enemys = []
 bullets = []
-
+delete_list = []
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb()
@@ -90,6 +90,10 @@ def update():
     for e in enemys:
         if collide(player, e):
             player.crash_by_enemy(e)
+    while len(delete_list) > 0:
+        d = delete_list.pop()
+        game_world.remove_object(d)
+        del d
     pass
 
 
@@ -113,4 +117,9 @@ def add_bullet(x, y, horizon, vertical, shooter, shoot_speed, damage):
     bullets.append(bul)
     game_world.add_object(bul, 1)
 
-
+def add_delete_list(object):
+    delete_list.append(object)
+    if object in enemys:
+        enemys.remove(object)
+    elif object in bullets:
+        bullets.remove(object)

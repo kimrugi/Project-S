@@ -3,7 +3,7 @@ import framework
 import back_ground
 from game_value import middle
 import math
-from bullet import Bullet
+import main_game
 import game_world
 PIXEL_PER_KILOMETER = 5
 RADIAN = 3.14159265359 / 4
@@ -160,8 +160,8 @@ class Player:
 
     def get_damaged(self, damage):
         self.HP -= damage
-        if self.HP <= 0:
-            pass
+        if self.HP < 0:
+            main_game.add_delete_list(self)
 
     def crash_by_enemy(self, other):
         self.get_damaged(other.damage_amount)
@@ -170,8 +170,7 @@ class Player:
     def crash_by_bullet(self, other):
         if not (self in other.ignore_list):
             self.get_damaged(other.damage)
-            game_world.remove_object(other)
-            del other
+            main_game.add_delete_list(other)
             return
     pass
 

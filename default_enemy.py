@@ -99,11 +99,16 @@ class DefaultEnemy:
         DefaultEnemy.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y,
                                      self.size * self.size_propotion, self.size)
 
+    def get_damaged(self, damage):
+        self.HP -= damage
+        if self.HP < 0:
+            main_game.add_delete_list(self)
+            pass
+
     def crash_by_bullet(self, other):
         if not (self in other.ignore_list):
-            self.HP -= other.damage
-            game_world.remove_object(other)
-            del other
+            self.get_damaged(other.damage)
+            main_game.add_delete_list(other)
             return
 def rounds_pi(theta):
     rounds = theta + HALF_OF_QUAD_PI
