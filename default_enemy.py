@@ -38,7 +38,7 @@ class DefaultEnemy:
         self.effect_time = 0.3
         self.set_speed(self.kmps)
         self.dir = math.pi / 4
-        self.detect_range = 500
+        self.detect_range = 100000000
         self.shoot_delay = 0.5
         self.shoot_count = 0
         self.damage_amount = 10
@@ -64,7 +64,7 @@ class DefaultEnemy:
     def find_player(self):
         player = main_game.get_player()
         distance = (player.x - self.x) ** 2 + (player.y - self.y) ** 2
-        if distance < self.detect_range ** 2:
+        if distance < self.detect_range:
             self.dir = rounds_pi(math.atan2(player.x - self.x, player.y - self.y))
             #self.dir = math.atan2(player.x - self.x, player.y - self.y)
             return BehaviorTree.SUCCESS
@@ -93,6 +93,7 @@ class DefaultEnemy:
 
     def update(self):
         self.bt.run()
+        self.shoot_count += framework.frame_time
         self.x += self.speed * math.sin(self.dir) * framework.frame_time
         self.y += self.speed * math.cos(self.dir) * framework.frame_time
         pass

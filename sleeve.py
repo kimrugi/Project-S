@@ -16,7 +16,7 @@ IMAGE_WIDTH, IMAGE_HEIGHT = 241 - 185, 309 - 254
 SIZE_PROPOTION = IMAGE_WIDTH / IMAGE_HEIGHT
 
 SIZE_KM = 7
-SPEED_KMPS = 10
+SPEED_KMPS = 200
 
 class Sleeve(default_enemy.DefaultEnemy):
     def load_image(self):
@@ -25,25 +25,53 @@ class Sleeve(default_enemy.DefaultEnemy):
 
     def reset_status(self):
         self.size = SIZE_KM * PIXEL_PER_KILOMETER
-        self.set_speed(SPEED_KMPS * PIXEL_PER_KILOMETER)
+        self.set_speed(SPEED_KMPS)
         self.shoot_delay = 2
         self.damage_amount = 5
         self.HP = 15
         self.size_propotion = SIZE_PROPOTION
         pass
 
-    def attack(self):
-        self.shoot_count += framework.frame_time
-        if self.shoot_count > self.shoot_delay:
-            player = main_game.get_player()
-            self.shoot_count -= self.shoot_delay
-            main_game.add_bullet(self.x, self.y, player.x - self.x, player.y - self.y, self, 500, self.damage_amount)
+    def find_player(self):
+        player = main_game.get_player()
+        self.dir = math.atan2(player.x - self.x, player.y - self.y)
         return BehaviorTree.SUCCESS
+
+    def delay_time(self):
+        if self.shoot_count > self.shoot_delay:
+            self.shoot_count -= self.shoot_delay
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+        pass
+
+    def build_behavior_tree(self):
+        find_player_node = LeafNode("Find Player", self.find_player)
+        delay_node = LeafNode("Delay", self.delay_time)
+        shoot_to_player = LeafNode("Shoot", self.attack)
+        chase_node = SequenceNode("Chase")
+        chase_node.add_children(find_player_node, delay_node, shoot_to_player)
+        self.bt = BehaviorTree(chase_node)
+
+
+        pass
+
+    def attack(self):
+        if self.shoot_count < 0.5:
+            self.x += self.speed * math.sin(self.dir) * framework.frame_time
+            self.y += self.speed * math.cos(self.dir) * framework.frame_time
+            return BehaviorTree.RUNNING
+        else:
+            return BehaviorTree.SUCCESS
         pass
 
     def draw(self, screen):
         self.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y,
                                self.size * SIZE_PROPOTION, self.size)
+
+    def update(self):
+        self.bt.run()
+        self.shoot_count += framework.frame_time
 
 
     pass
