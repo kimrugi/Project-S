@@ -16,7 +16,8 @@ IMAGE_WIDTH, IMAGE_HEIGHT = 241 - 185, 309 - 254
 SIZE_PROPOTION = IMAGE_WIDTH / IMAGE_HEIGHT
 
 SIZE_KM = 7
-SPEED_KMPS = 200
+SPEED_KMPS = 220
+MOVE_TIME = 0.5
 
 class Sleeve(default_enemy.DefaultEnemy):
     def load_image(self):
@@ -57,11 +58,13 @@ class Sleeve(default_enemy.DefaultEnemy):
         pass
 
     def attack(self):
-        if self.shoot_count < 0.5:
+        if self.shoot_count < MOVE_TIME:
             self.x += self.speed * math.sin(self.dir) * framework.frame_time
             self.y += self.speed * math.cos(self.dir) * framework.frame_time
+            self.speed -= self.speed * ((1 / MOVE_TIME) * (framework.frame_time / MOVE_TIME ))
             return BehaviorTree.RUNNING
         else:
+            self.set_speed(self.kmps)
             return BehaviorTree.SUCCESS
         pass
 
