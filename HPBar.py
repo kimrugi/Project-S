@@ -32,4 +32,4 @@ class HPBar():
     def draw(self, screen):
         x, y = self.obj.x - screen.x, self.obj.y + self.obj.size - screen.y
         self.back_image.draw(x, y, self.obj.size, HP_BACK_SIZE)
-        self.red.draw(x, y, self.obj.size * self.hp_per, HP_BAR_SIZE)
+        self.red.draw(x, y, (self.obj.size - 2) * self.hp_per, HP_BAR_SIZE)
