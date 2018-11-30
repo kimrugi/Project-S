@@ -20,6 +20,7 @@ class Flatter(default_enemy.DefaultEnemy):
     def reset_status(self):
         self.set_speed(10)
         self.shoot_delay = 5
+        self.max_HP = 20
         self.HP = 20
         pass
 
@@ -37,6 +38,8 @@ class Flatter(default_enemy.DefaultEnemy):
     def draw(self, screen):
         Flatter.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y,
                                      self.size * 2, self.size)
+        if self.HP < self.max_HP:
+            self.hp_bar.draw(screen)
 
 
     pass

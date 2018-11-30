@@ -26,12 +26,12 @@ class Nokkey(default_enemy.DefaultEnemy):
         self.set_speed(20)
         self.shoot_delay = 3
         self.damage_amount = 5
+        self.max_HP = 12
         self.HP = 12
         self.size_propotion = SIZE_PROPOTION
         pass
 
     def attack(self):
-
         if self.shoot_count > self.shoot_delay:
             player = main_game.get_player()
             self.shoot_count -= self.shoot_delay
@@ -42,6 +42,8 @@ class Nokkey(default_enemy.DefaultEnemy):
     def draw(self, screen):
         Nokkey.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y,
                                self.size * SIZE_PROPOTION, self.size)
+        if self.HP < self.max_HP:
+            self.hp_bar.draw(screen)
 
 
     pass

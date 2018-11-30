@@ -29,6 +29,7 @@ class Sleeve(default_enemy.DefaultEnemy):
         self.set_speed(SPEED_KMPS)
         self.shoot_delay = 2
         self.damage_amount = 5
+        self.max_HP = 15
         self.HP = 15
         self.size_propotion = SIZE_PROPOTION
         pass
@@ -71,6 +72,8 @@ class Sleeve(default_enemy.DefaultEnemy):
     def draw(self, screen):
         self.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y,
                                self.size * SIZE_PROPOTION, self.size)
+        if self.HP < self.max_HP:
+            self.hp_bar.draw(screen)
 
     def update(self):
         self.bt.run()

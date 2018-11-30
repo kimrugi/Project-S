@@ -29,15 +29,13 @@ class Explosion():
         self.load_image()
         self.frame = 0
         self.frame_count = 0
-        self.x, self.y = x,y
+        self.x, self.y = x, y
         self.size = size * 2
-        print(10)
         pass
 
     def update(self):
         self.frame += framework.frame_time * SEC_PER_ANIMATION
         if self.frame > 15:
-            print(20)
             main_game.add_delete_list(self)
         pass
 

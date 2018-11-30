@@ -155,8 +155,8 @@ class Player:
 
     def draw(self, screen):
         self.cur_state.draw(self, screen)
-        if self.HP != self.max_HP:
-            self.hp_bar.draw(screen)
+        #if self.HP != self.max_HP:
+        self.hp_bar.draw(screen)
 
     def size_up(self, size):
         self.size += size

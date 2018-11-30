@@ -5,6 +5,7 @@ import framework
 from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 import bullet
 import game_world
+import HPBar
 PIXEL_PER_KILOMETER = 5
 QUAD_PI = math.pi / 4
 HALF_OF_QUAD_PI = QUAD_PI / 2
@@ -42,7 +43,9 @@ class DefaultEnemy:
         self.shoot_delay = 0.5
         self.shoot_count = 0
         self.damage_amount = 10
-        self.HP = 12
+        self.max_HP = 12
+        self.HP = self.max_HP
+        self.hp_bar = HPBar.HPBar(self)
         self.bt = None
         self.build_behavior_tree()
         self.reset_status()
@@ -101,9 +104,12 @@ class DefaultEnemy:
     def draw(self, screen):
         DefaultEnemy.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y,
                                      self.size * self.size_propotion, self.size)
+        if self.HP > self.max_HP:
+            self.hp_bar.draw(screen)
 
     def get_damaged(self, damage):
         self.HP -= damage
+        self.hp_bar.change_hp()
         if self.HP < 0:
             main_game.add_delete_list(self)
             pass
