@@ -4,6 +4,7 @@ import back_ground
 from game_value import middle
 import math
 import main_game
+import HPBar
 import game_world
 PIXEL_PER_KILOMETER = 5
 RADIAN = 3.14159265359 / 4
@@ -94,6 +95,7 @@ class Player:
         self.is_invincible = 0
         self.invincible_time = 0.5
         self.event_que = []
+        self.hp_bar = HPBar.HPBar(self)
         self.kmps = 30
         self.speed = None
         self.calcul_speed(self.kmps)
@@ -153,6 +155,8 @@ class Player:
 
     def draw(self, screen):
         self.cur_state.draw(self, screen)
+        if self.HP != self.max_HP:
+            self.hp_bar.draw(screen)
 
     def size_up(self, size):
         self.size += size
@@ -175,6 +179,7 @@ class Player:
         if not self.is_invincible:
             self.HP -= damage
             self.damaged_effect()
+            self.hp_bar.change_hp()
             if self.HP < 0:
                 main_game.add_delete_list(self)
 
