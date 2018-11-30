@@ -12,6 +12,7 @@ import default_enemy
 import nokkey
 import Flatter
 import sleeve
+import wei
 
 player = None
 background = None
@@ -38,7 +39,7 @@ def enter():
     player = player_ship.Player()
     back_screen = screen.Screen(player)
     player_weapon = weapon.Weapon(player)
-    enemy = sleeve.Sleeve()
+    enemy = wei.Wei()
     enemys.append(enemy)
     game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
