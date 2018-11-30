@@ -13,14 +13,17 @@ import nokkey
 import Flatter
 import sleeve
 import wei
+import Explosion
 
 player = None
 background = None
 player_weapon = None
 back_screen = None
+
 enemys = []
 bullets = []
 delete_list = []
+
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb()
@@ -96,7 +99,6 @@ def update():
     while len(delete_list) > 0:
         d = delete_list.pop()
         game_world.remove_object(d)
-        del d
     pass
 
 
@@ -115,6 +117,10 @@ def get_player():
 def add_enemys(enemy):
     enemys.append(enemy)
 
+def add_explosion(x,y,size):
+    ex = Explosion.Explosion(x,y,size)
+    game_world.add_object(ex, 1)
+
 def add_bullet(x, y, horizon, vertical, shooter, shoot_speed, damage):
     bul = bullet.Bullet(x, y, horizon, vertical, shooter, shoot_speed, damage)
     bullets.append(bul)
@@ -122,7 +128,12 @@ def add_bullet(x, y, horizon, vertical, shooter, shoot_speed, damage):
 
 def add_delete_list(object):
     delete_list.append(object)
+    if object in enemys or object is player_ship:
+        add_explosion(object.x, object.y, object.size)
     if object in enemys:
         enemys.remove(object)
     elif object in bullets:
+        delete_list.append(object)
         bullets.remove(object)
+
+
