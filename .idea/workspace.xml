@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="587b1e01-51fb-4be8-acb9-0490b9850c1b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/asteroid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HPBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/HPBar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bullet.py" beforeDir="false" afterPath="$PROJECT_DIR$/bullet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/default_enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/default_enemy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player_ship.py" beforeDir="false" afterPath="$PROJECT_DIR$/player_ship.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/weapon.py" beforeDir="false" afterPath="$PROJECT_DIR$/weapon.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spawner.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,26 +31,26 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="png" value="3" />
-          <entry key="py" value="119" />
+          <entry key="py" value="120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="3" />
-          <entry key="Python" value="119" />
+          <entry key="Python" value="120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="430" />
           <entry key="dummy" value="45" />
-          <entry key="py" value="28972" />
+          <entry key="py" value="29147" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="45" />
-          <entry key="Python" value="29402" />
+          <entry key="Python" value="29577" />
         </counts>
       </usages-collector>
     </session>
@@ -74,60 +67,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bullet.py">
+        <entry file="file://$PROJECT_DIR$/spawner.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="38" column="63" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/default_enemy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/object.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sleeve.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="848">
-              <caret line="74" column="6" selection-start-line="74" selection-start-column="6" selection-end-line="75" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/screen.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="8" column="24" lean-forward="true" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/weapon.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-563">
-              <caret line="71" column="23" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HPBar.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="28" />
+            <state relative-caret-position="323">
+              <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+              <folding>
+                <marker date="1543641746653" expanded="true" signature="446:466" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -187,15 +133,16 @@
         <option value="$PROJECT_DIR$/player_ship.py" />
         <option value="$PROJECT_DIR$/asteroid.py" />
         <option value="$PROJECT_DIR$/default_enemy.py" />
-        <option value="$PROJECT_DIR$/weapon.py" />
         <option value="$PROJECT_DIR$/main_game.py" />
+        <option value="$PROJECT_DIR$/weapon.py" />
         <option value="$PROJECT_DIR$/bullet.py" />
+        <option value="$PROJECT_DIR$/spawner.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="277" />
-    <option name="y" value="122" />
+    <option name="x" value="389" />
+    <option name="y" value="58" />
     <option name="width" value="1396" />
     <option name="height" value="830" />
   </component>
@@ -219,12 +166,6 @@
               <item name="Project-S" type="b2602c69:ProjectViewProjectNode" />
               <item name="Project-S" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project-S" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project-S" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="etc" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -393,15 +334,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="389" y="58" width="1396" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49892932" visible="true" weight="0.09062171" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49892932" visible="true" weight="0.12665685" />
       <window_info id="Structure" order="1" sideWeight="0.5010707" side_tool="true" weight="0.12665685" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32805756" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32464713" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.43021584" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -541,13 +482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sleeve.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="848">
-          <caret line="74" column="6" selection-start-line="74" selection-start-column="6" selection-end-line="75" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/player_ship.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="749">
@@ -558,13 +492,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/screen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="8" column="24" lean-forward="true" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nokkey.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="387">
@@ -572,20 +499,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/object.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/default_enemy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/weapon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-563">
-          <caret line="71" column="23" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+        <state relative-caret-position="140">
+          <caret line="69" column="30" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -598,8 +515,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bullet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="38" column="63" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
+        <state relative-caret-position="323">
+          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="125" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/default_enemy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/object.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeve.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="848">
+          <caret line="74" column="6" selection-start-line="74" selection-start-column="6" selection-end-line="75" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spawner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+          <folding>
+            <marker date="1543641746653" expanded="true" signature="446:466" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
