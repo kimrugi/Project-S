@@ -13,7 +13,6 @@ HALF_OF_QUAD_PI = QUAD_PI / 2
 SEC_PER_ANIMATION = 15
 
 
-512 / 4
 LEFT = [0, 128, 128 * 2, 128 * 3]
 BOTTOM = [128 * 3, 128 * 2, 128, 0]
 
@@ -33,6 +32,9 @@ class Explosion():
         self.x, self.y = x, y
         self.size = size * 2
         pass
+
+    def get_bb(self):
+        return self.x - self.size, self.y - self.size, self.x + self.size, self.y + self.size
 
     def update(self):
         self.frame += framework.frame_time * SEC_PER_ANIMATION

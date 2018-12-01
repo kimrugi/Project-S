@@ -11,6 +11,9 @@ class Star:
         self.y = random.randint(0, SIZE_Y)
         self.size = random.randint(1, 100)
 
+    def get_bb(self):
+        return self.x - self.size, self.y - self.size, self.x + self.size, self.y + self.size
+
     def update(self):
         pass
 

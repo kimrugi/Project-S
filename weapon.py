@@ -62,7 +62,7 @@ class Weapon:
     player = None
     def __init__(self, player):
         self.dir = 0
-        self.fire_rate = 1
+        self.fire_rate = 0.1
         self.min_fire_rate = 0.3
         self.fire_timer = 0
         self.horizon = 0
@@ -77,6 +77,10 @@ class Weapon:
             Weapon.player = player
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+
+    def get_bb(self):
+        return self.player.x, self.player.y, self.player.x, self.player.y
+        pass
 
     def reduce_fire_rate(self):
         self.fire_rate -= 0.1

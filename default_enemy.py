@@ -66,10 +66,13 @@ class DefaultEnemy:
 
     def find_player(self):
         player = main_game.get_player()
+        self.dir = rounds_pi(math.atan2(player.x - self.x, player.y - self.y))
+        return BehaviorTree.SUCCESS
+
+    def is_near_player(self):
+        player = main_game.get_player()
         distance = (player.x - self.x) ** 2 + (player.y - self.y) ** 2
         if distance < self.detect_range:
-            self.dir = rounds_pi(math.atan2(player.x - self.x, player.y - self.y))
-            #self.dir = math.atan2(player.x - self.x, player.y - self.y)
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL

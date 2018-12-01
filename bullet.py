@@ -11,7 +11,7 @@ class Bullet:
     def __init__(self, x, y, ran, horizon, vertical, shooter, shoot_speed, damage):
         self.x = x
         self.y = y
-        self.size = 10
+        self.size = damage * 3
         self.damage = damage
         if Bullet.image == None:
             Bullet.image = load_image('resources\\bullet\\bullet1.png')

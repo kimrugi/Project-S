@@ -91,6 +91,7 @@ class Screen:
             Screen.font = load_font('resources\\text\\kongtext.ttf', 20)
         self.x = player.x - game_value.middle[0]
         self.y = player.y - game_value.middle[1]
+        self.size = 1000
         self.text = None
         self.text_start_time = 0
         self.event_que = []
@@ -99,6 +100,7 @@ class Screen:
         self.cur_state.enter(self, None)
 
     def get_bb(self):
+        return self.x - self.size, self.y - self.size, self.x + self.size, self.y + self.size
         pass
 
     def lock_screen(self):

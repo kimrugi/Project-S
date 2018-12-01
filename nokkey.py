@@ -29,12 +29,22 @@ class Nokkey(default_enemy.DefaultEnemy):
         self.max_HP = 12
         self.HP = 12
         self.size_propotion = SIZE_PROPOTION
+        self.detect_range = 350 * 350
         pass
+
+    def build_behavior_tree(self):
+        find_player_node = LeafNode("Find Player", self.find_player)
+        move_to_player_node = LeafNode("Chase", self.move_to_player)
+        is_near_player_node = LeafNode("is near", self.is_near_player)
+        shoot_to_player = LeafNode("Shoot", self.attack)
+        chase_node = SequenceNode("Chase")
+        chase_node.add_children(find_player_node, move_to_player_node, is_near_player_node, shoot_to_player)
+        self.bt = BehaviorTree(chase_node)
 
     def attack(self):
         if self.shoot_count > self.shoot_delay:
             player = main_game.get_player()
-            self.shoot_count -= self.shoot_delay
+            self.shoot_count = 0
             main_game.add_bullet(self.x, self.y, player.x - self.x, player.y - self.y, self, 500, self.damage_amount)
         return BehaviorTree.SUCCESS
         pass

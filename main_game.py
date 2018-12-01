@@ -17,17 +17,21 @@ import Explosion
 import asteroid
 import random
 import upgrades
+import Spawner
 player = None
 background = None
 player_weapon = None
 back_screen = None
+spawner = None
 
 SIZE_X, SIZE_Y = 8400, 8400
 
 enemys = []
+asteroids = []
 bullets = []
 upgrade = []
 delete_list = []
+
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -42,24 +46,26 @@ def collide(a, b):
 
 
 def enter():
-    global player, background, player_weapon, back_screen, enemys
+    global player, background, player_weapon, back_screen, enemys, spawner
     background = load_image('resources\\background\\black.png')
     player = player_ship.Player()
     back_screen = screen.Screen(player)
     player_weapon = weapon.Weapon(player)
     player.get_weapon(player_weapon)
-    enemy = wei.Wei()
+    spawner = Spawner.Spawner(player, back_screen, enemys)
+    enemy = nokkey.Nokkey()
     enemys.append(enemy)
     game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
     game_world.add_object(back_screen, 1)
     game_world.add_object(player_weapon, 1)
+    game_world.add_object(spawner, 0)
     for i in range(1000):
         star = back_ground.Star(player)
         game_world.add_object(star, 0)
     for i in range(500):
         aster = asteroid.Asteroid()
-        enemys.append(aster)
+        asteroids.append(aster)
         game_world.add_object(aster, 1)
     pass
 
@@ -94,15 +100,31 @@ def handle_events():
             player_weapon.handle_event(event)
 
 
+aster_in_screen = []
+
+
 def update():
     for o in game_world.all_objects():
-        o.update()
+        if collide(o, back_screen):
+            o.update()
+    for a in asteroids:
+        if a not in aster_in_screen:
+            if collide(a, back_screen):
+                aster_in_screen.append(a)
+    for a in aster_in_screen:
+        if not collide(a, back_screen):
+            aster_in_screen.remove(a)
     for b in bullets:
+        if not collide(b, back_screen):
+            add_delete_list(b)
         for e in enemys:
             if collide(b, e):
                 e.crash_by_bullet(b)
         if collide(player, b):
             player.crash_by_bullet(b)
+        for a in aster_in_screen:
+            if collide(b, a):
+                a.crash_by_bullet(b)
     for e in enemys:
         if collide(player, e):
             player.crash_by_enemy(e)
@@ -119,7 +141,8 @@ def draw():
     clear_canvas()
     background.draw(game_value.middle[0], game_value.middle[1], game_value.WINDOW_SIZE[0], game_value.WINDOW_SIZE[1])
     for o in game_world.all_objects():
-        o.draw(back_screen)
+        if collide(o, back_screen):
+            o.draw(back_screen)
     update_canvas()
 
 
@@ -158,6 +181,8 @@ def add_delete_list(object):
         add_explosion(object.x, object.y, object.size)
     if object in enemys:
         enemys.remove(object)
+    elif object in asteroids:
+        asteroids.remove(object)
     elif object in bullets:
         bullets.remove(object)
     elif object in upgrade:

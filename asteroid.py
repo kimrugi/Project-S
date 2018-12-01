@@ -5,8 +5,8 @@ import main_game
 import framework
 SIZE_X, SIZE_Y = 8400, 8400
 
-LEFT, RIGHT = 4200 - 500, 4200 + 500
-TOP, BOTTOM = 4200 - 300, 4200 + 300
+LEFT, RIGHT = 4200 - 1000, 4200 + 1000
+TOP, BOTTOM = 4200 - 600, 4200 + 600
 
 
 class Asteroid(default_enemy.DefaultEnemy):
