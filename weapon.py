@@ -69,6 +69,7 @@ class Weapon:
         self.event_que = []
         self.shoot_speed = 100
         self.damage_amount = 4
+        self.range = 10
         if Weapon.image == None:
             Weapon.image = load_image('resources\\character\\w.png')
         if Weapon.player == None:
@@ -77,7 +78,8 @@ class Weapon:
         self.cur_state.enter(self, None)
 
     def fire(self):
-        main_game.add_bullet(self.player.x, self.player.y, self.horizon, self.vertical, self.player, 300, self.damage_amount)
+        main_game.add_bullet(self.player.x, self.player.y, self.horizon, self.vertical, self.player,
+                             self.shoot_speed, self.damage_amount, self.range)
         pass
 
     def update(self):

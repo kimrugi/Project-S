@@ -1,10 +1,3 @@
-import math
-import main_game
-import framework
-from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
-import bullet
-import game_world
-import default_enemy
 from pico2d import *
 
 HP_BACK_SIZE = 6

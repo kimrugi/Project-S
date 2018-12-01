@@ -13,6 +13,7 @@ TURNING_SPEED_PER_SECOND = math.pi / 10
 
 RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP = range(8)
 DAMAGED_EFFECT = 0.5
+SPEED_PER_TON = 1
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_d): RIGHT_DOWN,
@@ -96,6 +97,7 @@ class Player:
         self.invincible_time = 0.5
         self.event_que = []
         self.hp_bar = HPBar.HPBar(self)
+        self.carrying_resource = 0
         self.kmps = 30
         self.speed = None
         self.calcul_speed(self.kmps)
@@ -104,7 +106,7 @@ class Player:
 
     def calcul_speed(self, kmps):
         self.kmps = kmps
-        self.speed = self.kmps * PIXEL_PER_KILOMETER
+        self.speed = self.kmps * PIXEL_PER_KILOMETER - self.carrying_resource * SPEED_PER_TON * PIXEL_PER_KILOMETER
 
     def get_bb(self):
         half_size = self.size / 2
@@ -191,7 +193,9 @@ class Player:
         if not (self in other.ignore_list):
             self.get_damaged(other.damage)
             main_game.add_delete_list(other)
-            return
+
+    def give_resource(self, amount):
+        self.carrying_resource += amount
     pass
 
 

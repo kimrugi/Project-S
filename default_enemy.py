@@ -86,12 +86,6 @@ class DefaultEnemy:
         self.bt = BehaviorTree(chase_node)
 
     def attack(self):
-        self.shoot_count += framework.frame_time
-        if self.shoot_count > self.shoot_delay:
-            player = main_game.get_player()
-            self.shoot_count -= self.shoot_delay
-            Bullet = bullet.Bullet(self.x, self.y, player.x - self.x, player.y - self.y, self)
-            game_world.add_object(Bullet, 1)
         return BehaviorTree.SUCCESS
 
     def update(self):
@@ -104,7 +98,7 @@ class DefaultEnemy:
     def draw(self, screen):
         DefaultEnemy.image.clip_draw(LEFT, BOTTOM, IMAGE_WIDTH, IMAGE_HEIGHT, self.x - screen.x, self.y - screen.y,
                                      self.size * self.size_propotion, self.size)
-        if self.HP > self.max_HP:
+        if self.HP < self.max_HP:
             self.hp_bar.draw(screen)
 
     def get_damaged(self, damage):

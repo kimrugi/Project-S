@@ -14,11 +14,14 @@ import Flatter
 import sleeve
 import wei
 import Explosion
-
+import asteroid
+import random
 player = None
 background = None
 player_weapon = None
 back_screen = None
+
+SIZE_X, SIZE_Y = 8400, 8400
 
 enemys = []
 bullets = []
@@ -51,6 +54,10 @@ def enter():
     for i in range(1000):
         star = back_ground.Star(player)
         game_world.add_object(star, 0)
+    for i in range(500):
+        aster = asteroid.Asteroid()
+        enemys.append(aster)
+        game_world.add_object(aster, 1)
     pass
 
 
@@ -117,14 +124,17 @@ def get_player():
 def add_enemys(enemy):
     enemys.append(enemy)
 
+
 def add_explosion(x,y,size):
     ex = Explosion.Explosion(x,y,size)
     game_world.add_object(ex, 1)
 
-def add_bullet(x, y, horizon, vertical, shooter, shoot_speed, damage):
-    bul = bullet.Bullet(x, y, horizon, vertical, shooter, shoot_speed, damage)
+
+def add_bullet(x, y, horizon, vertical, shooter, shoot_speed, damage, ran=10):
+    bul = bullet.Bullet(x, y, ran, horizon, vertical, shooter, shoot_speed, damage)
     bullets.append(bul)
     game_world.add_object(bul, 1)
+
 
 def add_delete_list(object):
     delete_list.append(object)
