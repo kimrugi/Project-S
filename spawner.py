@@ -20,11 +20,11 @@ class Spawner:
         self.y = screen.y
         pass
 
-
-
     def update(self):
         pass
 
-
     def draw(self, screen):
         pass
+
+
+

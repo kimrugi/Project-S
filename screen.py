@@ -86,6 +86,8 @@ class Screen:
             Screen.player = player
         self.x = player.x - game_value.middle[0]
         self.y = player.y - game_value.middle[1]
+        self.text = None
+        self.text_start_time = 0
         self.event_que = []
         self.locked = False
         self.cur_state = UnlockedState
@@ -100,6 +102,10 @@ class Screen:
     def unlock_screen(self):
         self.event_que.append(LOCK_TO_UNLOCK)
 
+    def print_text(self, text):
+        self.text = text
+        self.text_time = 0
+
     def update(self):
         self.cur_state.do(self)
         if len(self.event_que) > 0:
@@ -111,6 +117,8 @@ class Screen:
 
     def draw(self, screen):
         self.cur_state.draw(self, None)
+        if self.text is not None:
+            pass
 
 
 
