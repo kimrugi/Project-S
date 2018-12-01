@@ -1,6 +1,7 @@
 from pico2d import *
 import framework
 import math
+import main_game
 
 IMAGE_SIZE = (491, 344)
 BULLET_POSITION = -(int(190 - IMAGE_SIZE[1]))
@@ -37,5 +38,7 @@ class Bullet:
         self.x += self.speed * math.sin(self.dir) * framework.frame_time
         self.y += self.speed * math.cos(self.dir) * framework.frame_time
         self.size -= self.decrease_speed * framework.frame_time
+        if self.size < 0:
+            main_game.add_delete_list(self)
         pass
     pass

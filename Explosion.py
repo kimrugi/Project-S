@@ -6,6 +6,7 @@ from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 import bullet
 import game_world
 import default_enemy
+import random
 PIXEL_PER_KILOMETER = 5
 QUAD_PI = math.pi / 4
 HALF_OF_QUAD_PI = QUAD_PI / 2
@@ -36,6 +37,8 @@ class Explosion():
     def update(self):
         self.frame += framework.frame_time * SEC_PER_ANIMATION
         if self.frame > 15:
+            if random.randint(0, 20) == 0:
+                main_game.add_upgrade(self.x, self.y)
             main_game.add_delete_list(self)
         pass
 

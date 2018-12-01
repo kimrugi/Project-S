@@ -13,7 +13,8 @@ TURNING_SPEED_PER_SECOND = math.pi / 10
 
 RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP = range(8)
 DAMAGED_EFFECT = 0.5
-SPEED_PER_TON = 1
+SPEED_PER_TON = 0.5
+MIN_SPEED = 20 * PIXEL_PER_KILOMETER
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_d): RIGHT_DOWN,
@@ -84,6 +85,7 @@ class Player:
     def __init__(self):
         self.x = 4200
         self.y = 4200
+        self.weapon = None
         self.max_HP = 50
         self.HP = self.max_HP
         self.size = 50
@@ -104,9 +106,14 @@ class Player:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
 
+    def get_weapon(self, weapon):
+        self.weapon = weapon
+
     def calcul_speed(self, kmps):
         self.kmps = kmps
-        self.speed = self.kmps * PIXEL_PER_KILOMETER - self.carrying_resource * SPEED_PER_TON * PIXEL_PER_KILOMETER
+        self.speed = self.kmps * PIXEL_PER_KILOMETER - (self.carrying_resource * SPEED_PER_TON)
+        if self.speed < MIN_SPEED:
+            self.speed = MIN_SPEED
 
     def get_bb(self):
         half_size = self.size / 2
@@ -141,7 +148,7 @@ class Player:
                 self.vertical += 1
             if event == UP_UP:
                 self.vertical -= 1
-            if (self.horizon, self.vertical) != (0, 0):
+            if (self.horizon, self.vertical) in dir_table:
                 self.dir = dir_table[self.vertical, self.horizon]
             self.to_dir = math.atan2(self.horizon, self.vertical)
             self.cur_state.exit(self, event)
@@ -196,6 +203,7 @@ class Player:
 
     def give_resource(self, amount):
         self.carrying_resource += amount
+        self.calcul_speed(self.kmps)
     pass
 
 

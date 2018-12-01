@@ -16,6 +16,7 @@ import wei
 import Explosion
 import asteroid
 import random
+import upgrades
 player = None
 background = None
 player_weapon = None
@@ -25,6 +26,7 @@ SIZE_X, SIZE_Y = 8400, 8400
 
 enemys = []
 bullets = []
+upgrade = []
 delete_list = []
 
 def collide(a, b):
@@ -45,6 +47,7 @@ def enter():
     player = player_ship.Player()
     back_screen = screen.Screen(player)
     player_weapon = weapon.Weapon(player)
+    player.get_weapon(player_weapon)
     enemy = wei.Wei()
     enemys.append(enemy)
     game_world.add_object(enemy, 1)
@@ -84,7 +87,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             back_screen.lock_screen()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_z:
-            back_screen.unlock_screen()
+            pass
 
         else:
             player.handle_event(event)
@@ -103,6 +106,9 @@ def update():
     for e in enemys:
         if collide(player, e):
             player.crash_by_enemy(e)
+    for u in upgrade:
+        if collide(player, u):
+            u.crash(player)
     while len(delete_list) > 0:
         d = delete_list.pop()
         game_world.remove_object(d)
@@ -121,6 +127,10 @@ def get_player():
     return player
 
 
+def get_screen():
+    return back_screen
+
+
 def add_enemys(enemy):
     enemys.append(enemy)
 
@@ -136,6 +146,12 @@ def add_bullet(x, y, horizon, vertical, shooter, shoot_speed, damage, ran=10):
     game_world.add_object(bul, 1)
 
 
+def add_upgrade(x, y):
+    u = upgrades.UpgradeUnit(x,y)
+    upgrade.append(u)
+    game_world.add_object(u,1)
+
+
 def add_delete_list(object):
     delete_list.append(object)
     if object in enemys or object is player_ship:
@@ -143,7 +159,7 @@ def add_delete_list(object):
     if object in enemys:
         enemys.remove(object)
     elif object in bullets:
-        delete_list.append(object)
         bullets.remove(object)
-
+    elif object in upgrade:
+        upgrade.remove(object)
 

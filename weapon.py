@@ -62,7 +62,8 @@ class Weapon:
     player = None
     def __init__(self, player):
         self.dir = 0
-        self.fire_rate = 0.5
+        self.fire_rate = 1
+        self.min_fire_rate = 0.3
         self.fire_timer = 0
         self.horizon = 0
         self.vertical = 0
@@ -76,6 +77,16 @@ class Weapon:
             Weapon.player = player
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+
+    def reduce_fire_rate(self):
+        self.fire_rate -= 0.1
+        if self.fire_rate < self.min_fire_rate:
+            self.fire_rate = self.min_fire_rate
+
+    def reduce_min_fire_rate(self):
+        self.min_fire_rate -= 0.05
+        if self.min_fire_rate < 0.05:
+            self.min_fire_rate = 0.05
 
     def fire(self):
         main_game.add_bullet(self.player.x, self.player.y, self.horizon, self.vertical, self.player,

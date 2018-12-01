@@ -2,12 +2,15 @@ import game_value
 import main_game
 import math
 import framework
+from pico2d import *
 SIZE_X, SIZE_Y = 8400, 8400
 
 PIXEL_PER_KILOMETER = 5
 SCREEN_MOVE_SPEED = 300
 WINDOW_SIZE = (960, 540)
 MIDDLE = (WINDOW_SIZE[0] // 2, WINDOW_SIZE[1] // 2)
+TEXT_X, TEXT_Y = MIDDLE[0], WINDOW_SIZE[1] / 10
+TEXT_TIME = 2
 LOCK, LOCK_TO_UNLOCK, UNLOCK = range(3)
 
 class LockedState:
@@ -80,10 +83,12 @@ next_state_table = {
 
 class Screen:
     player = None
-
+    font = None
     def __init__(self, player):
         if Screen.player is None:
             Screen.player = player
+        if Screen.font is None:
+            Screen.font = load_font('resources\\text\\kongtext.ttf', 20)
         self.x = player.x - game_value.middle[0]
         self.y = player.y - game_value.middle[1]
         self.text = None
@@ -104,10 +109,13 @@ class Screen:
 
     def print_text(self, text):
         self.text = text
-        self.text_time = 0
+        self.text_start_time = 0
 
     def update(self):
         self.cur_state.do(self)
+        self.text_start_time += framework.frame_time
+        if self.text_start_time > TEXT_TIME:
+            self.text = None
         if len(self.event_que) > 0:
             event = self.event_que.pop()
             self.cur_state.exit(self, event)
@@ -118,7 +126,7 @@ class Screen:
     def draw(self, screen):
         self.cur_state.draw(self, None)
         if self.text is not None:
-            pass
+            self.font.draw(TEXT_X - ((len(self.text) / 2) * 20), TEXT_Y, self.text, (255, 255, 255))
 
 
 
