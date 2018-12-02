@@ -34,10 +34,11 @@ def manage_delete_list():
         DAAC(i[0])
     elif i[1] == "change":
         C(i[0])
-    elif i[1] == "push state":
+    elif i[1] == "push_state":
         PS(i[0])
-    elif i[1] == "pop state":
+    elif i[1] == "pop_state":
         POPS()
+
 
 def delete_all_and_change(state):
     global delete_list

@@ -71,7 +71,7 @@ def enter():
     for i in range(1000):
         star = back_ground.Star(player)
         game_world.add_object(star, 0)
-    for i in range(100):
+    for i in range(200):
         aster = asteroid.Asteroid()
         asteroids.append(aster)
         game_world.add_object(aster, 0)
