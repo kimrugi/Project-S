@@ -18,11 +18,15 @@ import asteroid
 import random
 import upgrades
 import Spawner
+import SpaceStation
+import workshop
 player = None
 background = None
 player_weapon = None
 back_screen = None
 spawner = None
+font = None
+space_station = None
 
 SIZE_X, SIZE_Y = 8400, 8400
 
@@ -46,32 +50,43 @@ def collide(a, b):
 
 
 def enter():
-    global player, background, player_weapon, back_screen, enemys, spawner
+    global player, background, player_weapon, back_screen, enemys, spawner, font, space_station
+    font = load_font('resources\\text\\kongtext.ttf', 20)
     background = load_image('resources\\background\\black.png')
     player = player_ship.Player()
     back_screen = screen.Screen(player)
     player_weapon = weapon.Weapon(player)
     player.get_weapon(player_weapon)
     spawner = Spawner.Spawner(player, back_screen, enemys)
-    enemy = nokkey.Nokkey()
+    space_station = SpaceStation.SpaceStation()
+    enemy = wei.Wei()
     enemys.append(enemy)
     game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
     game_world.add_object(back_screen, 1)
     game_world.add_object(player_weapon, 1)
     game_world.add_object(spawner, 0)
+    game_world.add_object(space_station, 0)
     for i in range(1000):
         star = back_ground.Star(player)
         game_world.add_object(star, 0)
-    for i in range(500):
+    for i in range(100):
         aster = asteroid.Asteroid()
         asteroids.append(aster)
-        game_world.add_object(aster, 1)
+        game_world.add_object(aster, 0)
     pass
 
 
 def exit():
+    global enemys, asteroids, bullets, upgrade, delete_list, aster_in_screen, font
+    enemys = []
+    asteroids = []
+    bullets = []
+    upgrade = []
+    delete_list = []
+    aster_in_screen =[]
     game_world.clear()
+    del font
     pass
 
 
@@ -92,8 +107,12 @@ def handle_events():
             framework.push_state(paused)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             back_screen.lock_screen()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_z:
-            pass
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_f:
+            if collide(player, space_station):
+                space_station.resource_amount += player.carrying_resource
+                player.carrying_resource = 0
+                player.HP = player.max_HP
+                #framework.push_state(workshop)
 
         else:
             player.handle_event(event)
@@ -104,6 +123,7 @@ aster_in_screen = []
 
 
 def update():
+    spawner.update()
     for o in game_world.all_objects():
         if collide(o, back_screen):
             o.update()
@@ -143,15 +163,17 @@ def draw():
     for o in game_world.all_objects():
         if collide(o, back_screen):
             o.draw(back_screen)
+    if player.carrying_resource > 0:
+        font.draw(960 - 100, 530, "%5d"%player.carrying_resource, (255, 255, 255))
     update_canvas()
 
 
 def get_player():
     return player
-
-
 def get_screen():
     return back_screen
+def get_SS():
+    return space_station
 
 
 def add_enemys(enemy):
@@ -175,6 +197,12 @@ def add_upgrade(x, y):
     game_world.add_object(u,1)
 
 
+def clear_enemys():
+    for e in enemys:
+        enemys.remove(e)
+        game_world.remove_object(e)
+
+
 def add_delete_list(object):
     delete_list.append(object)
     if object in enemys or object is player_ship:
@@ -183,6 +211,7 @@ def add_delete_list(object):
         enemys.remove(object)
     elif object in asteroids:
         asteroids.remove(object)
+        aster_in_screen.remove(object)
     elif object in bullets:
         bullets.remove(object)
     elif object in upgrade:

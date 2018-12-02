@@ -62,7 +62,7 @@ class Weapon:
     player = None
     def __init__(self, player):
         self.dir = 0
-        self.fire_rate = 0.1
+        self.fire_rate = 1
         self.min_fire_rate = 0.3
         self.fire_timer = 0
         self.horizon = 0

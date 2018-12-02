@@ -45,7 +45,7 @@ class Nokkey(default_enemy.DefaultEnemy):
         if self.shoot_count > self.shoot_delay:
             player = main_game.get_player()
             self.shoot_count = 0
-            main_game.add_bullet(self.x, self.y, player.x - self.x, player.y - self.y, self, 500, self.damage_amount)
+            main_game.add_bullet(self.x, self.y, player.x - self.x, player.y - self.y, self, 200, self.damage_amount)
         return BehaviorTree.SUCCESS
         pass
 
