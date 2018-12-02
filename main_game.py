@@ -20,6 +20,7 @@ import upgrades
 import Spawner
 import SpaceStation
 import workshop
+import Arrow
 player = None
 background = None
 player_weapon = None
@@ -27,6 +28,7 @@ back_screen = None
 spawner = None
 font = None
 space_station = None
+arrow = None
 
 SIZE_X, SIZE_Y = 8400, 8400
 
@@ -50,7 +52,7 @@ def collide(a, b):
 
 
 def enter():
-    global player, background, player_weapon, back_screen, enemys, spawner, font, space_station
+    global player, background, player_weapon, back_screen, enemys, spawner, font, space_station, arrow
     font = load_font('resources\\text\\kongtext.ttf', 20)
     background = load_image('resources\\background\\black.png')
     player = player_ship.Player()
@@ -59,6 +61,7 @@ def enter():
     player.get_weapon(player_weapon)
     spawner = Spawner.Spawner(player, back_screen, enemys)
     space_station = SpaceStation.SpaceStation()
+    arrow = Arrow.Arrow()
     enemy = wei.Wei()
     enemys.append(enemy)
     game_world.add_object(enemy, 1)
@@ -67,6 +70,7 @@ def enter():
     game_world.add_object(player_weapon, 1)
     game_world.add_object(spawner, 0)
     game_world.add_object(space_station, 0)
+    game_world.add_object(arrow, 0)
     for i in range(1000):
         star = back_ground.Star(player)
         game_world.add_object(star, 0)
