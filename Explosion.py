@@ -20,17 +20,21 @@ IMAGE_HEIGHT = IMAGE_WIDTH = 128
 
 class Explosion():
     image = None
-
+    sound = None
     def load_image(self):
         if Explosion.image is None:
             Explosion.image = load_image('resources\\character\\explosion.png')
 
     def __init__(self, x,y,size):
         self.load_image()
+        if Explosion.sound is None:
+            Explosion.sound = load_wav('resources\\SE\\explosion.wav')
+            Explosion.sound.set_volume(10)
         self.frame = 0
         self.frame_count = 0
         self.x, self.y = x, y
         self.size = size * 2
+        self.sound.play()
         pass
 
     def get_bb(self):

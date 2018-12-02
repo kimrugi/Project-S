@@ -6,6 +6,7 @@ import random
 import sleeve
 import wei
 import nokkey
+from pico2d import *
 SIZE_X, SIZE_Y = 8400, 8400
 
 PIXEL_PER_KILOMETER = 5
@@ -23,7 +24,7 @@ class Spawner:
     screen = None
     player = None
     enemys = None
-
+    main_music = None
     def __init__(self, player, screen, enemys):
         if Spawner.screen is None:
             Spawner.screen = screen
@@ -31,7 +32,13 @@ class Spawner:
             Spawner.player = player
         if Spawner.enemys is None:
             Spawner.enemys = enemys
-        pass
+        if Spawner.main_music is None:
+            Spawner.main_music = load_music('resources\\music\\main theme.mp3')
+            Spawner.main_music.set_volume(20)
+        self.current_music = self.main_music
+
+    def play_music(self):
+        self.current_music.repeat_play()
 
     def get_bb(self):
         return 0, 0, 0, 0
@@ -55,6 +62,9 @@ class Spawner:
             e = wei.Wei(x, y)
         main_game.add_enemys(e)
         game_world.add_object(e, 1)
+
+    def spawn_boss(self):
+        pass
 
     def draw(self, screen):
         pass

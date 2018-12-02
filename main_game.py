@@ -78,6 +78,7 @@ def enter():
         aster = asteroid.Asteroid()
         asteroids.append(aster)
         game_world.add_object(aster, 0)
+    spawner.play_music()
     pass
 
 
@@ -113,9 +114,7 @@ def handle_events():
             back_screen.lock_screen()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_f:
             if collide(player, space_station):
-                space_station.resource_amount += player.carrying_resource
-                player.carrying_resource = 0
-                player.HP = player.max_HP
+                space_station.get_resource()
                 #framework.push_state(workshop)
 
         else:

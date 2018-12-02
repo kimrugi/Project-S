@@ -2,6 +2,9 @@ from pico2d import *
 import main_game
 import game_value
 import math
+
+DISTANCE = 400 * 400
+
 class Arrow():
     image = None
     def load_image(self):
@@ -24,5 +27,5 @@ class Arrow():
 
     def draw(self, screen):
         distance = (self.player.x - self.ss.x) ** 2 + (self.player.y - self.ss.y) ** 2
-        if distance > 270 * 270:
+        if distance > DISTANCE:
             self.image.rotate_draw(self.dir, game_value.middle[0], game_value.middle[1])
