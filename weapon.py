@@ -73,8 +73,7 @@ class Weapon:
         self.range = 10
         if Weapon.image == None:
             Weapon.image = load_image('resources\\character\\w.png')
-        if Weapon.player == None:
-            Weapon.player = player
+        Weapon.player = player
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
 

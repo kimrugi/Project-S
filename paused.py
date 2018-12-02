@@ -3,11 +3,11 @@ from pico2d import *
 import game_world
 import main_game
 import main_menu
+import game_value
 
+NUM_OF_MENUS = 1
 
-NUM_OF_MENUS = 3
-
-RESUME_GAME, GO_TO_MAINMENU, QUIT_GAME = range(NUM_OF_MENUS)
+RESUME_GAME = 0
 
 
 selection = RESUME_GAME
@@ -16,12 +16,17 @@ selection_table = {
     
     }
 
+paused = None
+
 def enter():
-    
+    global paused
+    paused = load_image('resources\\background\\paused.png')
     pass
 
 
 def exit():
+    global paused
+    del paused
     pass
 
 
@@ -51,10 +56,6 @@ def handle_events():
             if event.key == SDLK_SPACE:
                 if selection == RESUME_GAME:
                     framework.pop_state()
-                elif selection == GO_TO_MAINMENU:
-                    framework.delete_all_and_change(main_menu)
-                elif selection == QUIT_GAME:
-                    framework.quit()
                     
 
 def update():
@@ -64,7 +65,11 @@ def update():
 
 def draw():
     clear_canvas()
-    main_game.draw()
+    main_game.background.draw(game_value.middle[0], game_value.middle[1], game_value.WINDOW_SIZE[0], game_value.WINDOW_SIZE[1])
+    for o in game_world.all_objects():
+        if main_game.collide(o, main_game.back_screen):
+            o.draw(main_game.back_screen)
+    paused.draw(game_value.middle[0], game_value.middle[1], game_value.WINDOW_SIZE[0], game_value.WINDOW_SIZE[1])
     update_canvas()
 
 

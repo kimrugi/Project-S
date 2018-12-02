@@ -93,8 +93,7 @@ class Screen:
     player = None
     font = None
     def __init__(self, player):
-        if Screen.player is None:
-            Screen.player = player
+        Screen.player = player
         if Screen.font is None:
             Screen.font = load_font('resources\\text\\kongtext.ttf', 20)
         self.x = player.x - game_value.middle[0]

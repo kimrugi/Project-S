@@ -16,16 +16,26 @@ selection = START_GAME
 
 texts = None
 selection = 0
-
+font = None
+background = None
+music = None
 def enter():
-    global texts, selection
+    global texts, selection, font, background, music
     texts = load_image("resources\\text\\main menu.png")
+    font = load_font('resources\\text\\kongtext.ttf')
     selection = START_GAME
-
+    background = load_image('resources\\background\\menu.png')
+    music = load_music('resources\\music\\menu.mp3')
+    music.set_volume(20)
+    music.repeat_play()
 
 def exit():
-    global texts
+    global texts, font, background, music
     del texts
+    del font
+    del background
+    music.stop()
+    del music
 
 
 def pause():
@@ -49,6 +59,7 @@ def handle_events():
                 if selection == 0:
                     selection = NUM_OF_MENUS
                 selection -= 1
+
             if event.key == SDLK_DOWN:
                 selection = (selection + 1) % NUM_OF_MENUS
             if event.key == SDLK_SPACE:
@@ -61,16 +72,13 @@ def update():
     
     pass
 
-
-def draw_texts():
-    global texts
-    if selection == START_GAME:
-        texts.clip_draw(0, 200, 500, 100, game_value.WINDOW_SIZE[0] // 2, game_value.WINDOW_SIZE[1] // 2)
-    texts.clip_draw(0, 0, 500, 100, game_value.WINDOW_SIZE[0] // 2, game_value.WINDOW_SIZE[1] // 2 - 150)
+font_location = [(game_value.WINDOW_SIZE[0] // 2 - 300, game_value.WINDOW_SIZE[1] // 2),
+                 (game_value.WINDOW_SIZE[0] // 2 - 300, game_value.WINDOW_SIZE[1] // 2 - 150)]
 
 def draw():
-    global texts
     clear_canvas()
+    background.draw(game_value.middle[0], game_value.middle[1], game_value.WINDOW_SIZE[0], game_value.WINDOW_SIZE[1])
+    font.draw(font_location[selection][0], font_location[selection][1], "->", (255, 255, 255))
     texts.clip_draw(0, 200, 500, 100, game_value.WINDOW_SIZE[0] // 2, game_value.WINDOW_SIZE[1] // 2)
     texts.clip_draw(0, 0, 500, 100, game_value.WINDOW_SIZE[0] // 2, game_value.WINDOW_SIZE[1] // 2 - 150)
     update_canvas()

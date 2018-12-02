@@ -28,12 +28,9 @@ class Spawner:
     main_music = None
     boss_music = None
     def __init__(self, player, screen, enemys):
-        if Spawner.screen is None:
-            Spawner.screen = screen
-        if Spawner.player is None:
-            Spawner.player = player
-        if Spawner.enemys is None:
-            Spawner.enemys = enemys
+        Spawner.screen = screen
+        Spawner.player = player
+        Spawner.enemys = enemys
         if Spawner.main_music is None:
             Spawner.main_music = load_music('resources\\music\\main theme.mp3')
             Spawner.main_music.set_volume(20)
@@ -48,9 +45,9 @@ class Spawner:
 
     def del_music(self):
         self.current_music.stop()
-        del self.current_music
-        del Spawner.boss_music
-        del Spawner.main_music
+        #del self.current_music
+        #del Spawner.boss_music
+        #del Spawner.main_music
 
     def get_bb(self):
         return 0, 0, 0, 0
@@ -60,7 +57,7 @@ class Spawner:
             if len(self.enemys) < self.player.carrying_resource / 20:
                 self.spawn_enemy()
         else:
-            if len(self.enemys) < 7:
+            if len(self.enemys) < 4:
                 self.spawn_enemy()
         pass
 
@@ -83,6 +80,7 @@ class Spawner:
         self.boss = None
         self.current_music = self.main_music
         self.play_music()
+        self.screen.unlock_screen()
 
     def spawn_boss(self):
         self.screen.lock_screen()

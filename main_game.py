@@ -62,9 +62,6 @@ def enter():
     spawner = Spawner.Spawner(player, back_screen, enemys)
     space_station = SpaceStation.SpaceStation()
     arrow = Arrow.Arrow()
-    enemy = wei.Wei()
-    enemys.append(enemy)
-    game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
     game_world.add_object(back_screen, 1)
     game_world.add_object(player_weapon, 1)
@@ -83,7 +80,8 @@ def enter():
 
 
 def exit():
-    global enemys, asteroids, bullets, upgrade, delete_list, aster_in_screen, font, spawner
+    global enemys, asteroids, bullets, upgrade, delete_list, aster_in_screen, font, spawner, player, background
+    global player_weapon, back_screen, space_station, arrow
     spawner.del_music()
     enemys = []
     asteroids = []
@@ -92,6 +90,14 @@ def exit():
     delete_list = []
     aster_in_screen =[]
     game_world.clear()
+    del player
+    del back_screen
+    del background
+    del spawner
+    del player_weapon
+    del space_station
+    del arrow
+
     del font
     pass
 
@@ -111,8 +117,6 @@ def handle_events():
             framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             framework.push_state(paused)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            back_screen.lock_screen()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_f:
             if collide(player, space_station):
                 space_station.get_resource()

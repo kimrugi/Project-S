@@ -26,6 +26,7 @@ key_event_table = {
     (SDL_KEYUP, SDLK_w): UP_UP,
     (SDL_KEYUP, SDLK_s): DOWN_UP,
 }
+import dead
 
 next_state_table = {}
 
@@ -92,6 +93,7 @@ class Player:
         self.to_dir = 1
         if Player.image == None:
             Player.image = load_image('resources\\character\\spaceship.png')
+        Player.image.opacify(1)
         self.vertical = 0
         self.horizon = 0
         self.dir = 0
@@ -191,6 +193,7 @@ class Player:
             self.hp_bar.change_hp()
             if self.HP < 0:
                 main_game.add_delete_list(self)
+                framework.change(dead)
 
     def crash_by_enemy(self, other):
         self.get_damaged(other.damage_amount)

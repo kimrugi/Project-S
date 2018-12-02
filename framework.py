@@ -3,12 +3,13 @@ import time
 running = None
 stack = None
 frame_time = 0
-
+delete_list = None
 
 def run(start):
-    global running, stack
+    global running, stack, delete_list
     running = True
     stack = [start]
+    delete_list = []
     start.enter()
     current_time = time.time()
     global frame_time
@@ -18,12 +19,46 @@ def run(start):
         stack[-1].draw()
         frame_time = time.time() - current_time
         current_time += frame_time
+        if len(delete_list) > 0:
+            manage_delete_list()
 
     while len(stack) > 0:
         stack[-1].exit()
         stack.pop()
 
+
+def manage_delete_list():
+    global delete_list
+    i = delete_list.pop()
+    if i[1] == "delete_all_and_change":
+        DAAC(i[0])
+    elif i[1] == "change":
+        C(i[0])
+    elif i[1] == "push state":
+        PS(i[0])
+    elif i[1] == "pop state":
+        POPS()
+
 def delete_all_and_change(state):
+    global delete_list
+    delete_list.append((state, "delete_all_and_change"))
+
+
+def change(state):
+    global delete_list
+    delete_list.append((state, "change"))
+
+
+def push_state(state):
+    global delete_list
+    delete_list.append((state, "push_state"))
+
+
+def pop_state():
+    global delete_list
+    delete_list.append((None, "pop_state"))
+
+def DAAC(state):
     global stack
     while len(stack) > 0:
         stack[-1].exit()
@@ -32,7 +67,7 @@ def delete_all_and_change(state):
     stack.enter()
 
 
-def change(state):
+def C(state):
     global stack
     if len(stack) > 0:
         stack[-1].exit()
@@ -41,7 +76,7 @@ def change(state):
     state.enter()
 
 
-def push_state(state):
+def PS(state):
     global stack
     if len(stack) > 0:
         stack[-1].pause()
@@ -49,7 +84,7 @@ def push_state(state):
     state.enter()
 
 
-def pop_state():
+def POPS():
     global stack
     if len(stack) > 0:
         stack[-1].exit()

@@ -28,6 +28,7 @@ class SpaceStation():
         self.resource_amount += player.carrying_resource
         self.boss_counter += player.carrying_resource
         player.carrying_resource = 0
+        player.calcul_speed(player.kmps)
         if self.fix_counter > 3:
             self.fix_counter = 0
             player.HP = player.max_HP
