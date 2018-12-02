@@ -13,9 +13,13 @@ TEXT_X, TEXT_Y = MIDDLE[0], WINDOW_SIZE[1] / 10
 TEXT_TIME = 2
 LOCK, LOCK_TO_UNLOCK, UNLOCK = range(3)
 
+left, right, top, down = 0, 0, 0, 0
+
 class LockedState:
     @staticmethod
     def enter(screen, event):
+        global left, right, top, down
+        left, right, down, top = screen.x, screen.x + WINDOW_SIZE[0], screen.y, screen.y + WINDOW_SIZE[1]
         pass
 
     @staticmethod
@@ -24,6 +28,10 @@ class LockedState:
 
     @staticmethod
     def do(screen):
+        player = main_game.get_player()
+
+        player.x = clamp(left, player.x, right)
+        player.y = clamp(down, player.y, top)
         pass
 
     @staticmethod

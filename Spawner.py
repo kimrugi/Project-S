@@ -6,6 +6,7 @@ import random
 import sleeve
 import wei
 import nokkey
+import Flatter
 from pico2d import *
 SIZE_X, SIZE_Y = 8400, 8400
 
@@ -25,6 +26,7 @@ class Spawner:
     player = None
     enemys = None
     main_music = None
+    boss_music = None
     def __init__(self, player, screen, enemys):
         if Spawner.screen is None:
             Spawner.screen = screen
@@ -35,17 +37,31 @@ class Spawner:
         if Spawner.main_music is None:
             Spawner.main_music = load_music('resources\\music\\main theme.mp3')
             Spawner.main_music.set_volume(20)
+        if Spawner.boss_music is None:
+            Spawner.boss_music = load_music('resources\\music\\boss.mp3')
+            Spawner.boss_music.set_volume(30)
+        self.boss = None
         self.current_music = self.main_music
 
     def play_music(self):
         self.current_music.repeat_play()
 
+    def del_music(self):
+        self.current_music.stop()
+        del self.current_music
+        del Spawner.boss_music
+        del Spawner.main_music
+
     def get_bb(self):
         return 0, 0, 0, 0
 
     def update(self):
-        if len(self.enemys) < self.player.carrying_resource / 20:
-            self.spawn_enemy()
+        if self.boss is None:
+            if len(self.enemys) < self.player.carrying_resource / 20:
+                self.spawn_enemy()
+        else:
+            if len(self.enemys) < 7:
+                self.spawn_enemy()
         pass
 
     def spawn_enemy(self):
@@ -63,7 +79,19 @@ class Spawner:
         main_game.add_enemys(e)
         game_world.add_object(e, 1)
 
+    def del_boss(self):
+        self.boss = None
+        self.current_music = self.main_music
+        self.play_music()
+
     def spawn_boss(self):
+        self.screen.lock_screen()
+        self.boss = Flatter.Flatter(self.screen.x + 1000, self.screen.y + 1000)
+        main_game.add_enemys(self.boss)
+        game_world.add_object(self.boss, 1)
+        self.current_music = self.boss_music
+        self.play_music()
+
         pass
 
     def draw(self, screen):

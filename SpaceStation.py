@@ -1,5 +1,6 @@
 from pico2d import *
 import main_game
+import framework
 class SpaceStation():
     image = None
     font = None
@@ -15,9 +16,11 @@ class SpaceStation():
         self.boss_counter = 0
         self.x, self.y = 4200, 4200
         self.size = 200
+        self.fix_counter = 0
         pass
 
     def update(self):
+        self.fix_counter += framework.frame_time
         pass
 
     def get_resource(self):
@@ -25,11 +28,14 @@ class SpaceStation():
         self.resource_amount += player.carrying_resource
         self.boss_counter += player.carrying_resource
         player.carrying_resource = 0
-        player.HP = player.max_HP
+        if self.fix_counter > 3:
+            self.fix_counter = 0
+            player.HP = player.max_HP
         if self.resource_amount > 30:
             self.resource_amount -= 30
             main_game.add_upgrade(self.x, self.y)
         if self.boss_counter > 1000:
+            self.boss_counter -= 1000
             main_game.spawner.spawn_boss()
 
     def get_bb(self):

@@ -83,7 +83,8 @@ def enter():
 
 
 def exit():
-    global enemys, asteroids, bullets, upgrade, delete_list, aster_in_screen, font
+    global enemys, asteroids, bullets, upgrade, delete_list, aster_in_screen, font, spawner
+    spawner.del_music()
     enemys = []
     asteroids = []
     bullets = []

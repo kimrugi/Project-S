@@ -29,7 +29,7 @@ class Explosion():
         self.load_image()
         if Explosion.sound is None:
             Explosion.sound = load_wav('resources\\SE\\explosion.wav')
-            Explosion.sound.set_volume(10)
+            Explosion.sound.set_volume(30)
         self.frame = 0
         self.frame_count = 0
         self.x, self.y = x, y
