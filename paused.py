@@ -8,7 +8,18 @@ import game_value
 NUM_OF_MENUS = 1
 
 RESUME_GAME = 0
+UP, DOWN, LEFT, RIGHT, A, B = range(6)
+command_key_table = {
+    SDLK_UP: UP,
+    SDLK_DOWN: DOWN,
+    SDLK_LEFT: LEFT,
+    SDLK_RIGHT: RIGHT,
+    SDLK_a: A,
+    SDLK_b: B
+}
 
+
+CM = [UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT, B, A]
 
 selection = RESUME_GAME
 
@@ -16,11 +27,20 @@ selection_table = {
     
     }
 
+cheat_command = None
+
+
 paused = None
 
+def check_command():
+    if cheat_command == CM:
+        player = main_game.get_player()
+        player.carrying_resource += 1000
+
 def enter():
-    global paused
+    global paused, cheat_command
     paused = load_image('resources\\background\\paused.png')
+    cheat_command = []
     pass
 
 
@@ -45,6 +65,9 @@ def handle_events():
         if event.type == SDL_QUIT:
             framework.quit()
         elif event.type == SDL_KEYDOWN:
+            if event.key in command_key_table:
+                cheat_command.append(command_key_table[event.key])
+                check_command()
             if event.key == SDLK_ESCAPE:
                framework.pop_state()
             if event.key == SDLK_UP:

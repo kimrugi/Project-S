@@ -156,6 +156,8 @@ def update():
     for e in enemys:
         if collide(player, e):
             player.crash_by_enemy(e)
+        if not collide(e, back_screen):
+            add_delete_list(e)
     for u in upgrade:
         if collide(player, u):
             u.crash(player)
